@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-title {
+  @apply text-xl font-semibold text-primary;
+}
+
+.sub-title {
+  @apply text-lg font-semibold text-black; 
+}
+
+.paragraph-regular {
+  @apply text-base leading-normal text-black;
+}
+
+.paragraph-bold {
+  @apply text-base leading-normal font-bold text-black;
+}
+
+.tags-regular {
+  @apply text-xs text-gray-600;
+}
+
+.links-regular {
+  @apply text-xs text-info;
+}
