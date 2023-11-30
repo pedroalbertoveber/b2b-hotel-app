@@ -40,7 +40,7 @@ export function Sidebar() {
         <Collapsible className="w-full space-y-2">
           <CollapsibleTrigger className="group flex w-full items-center justify-between rounded-md bg-white/10 px-3 py-4 duration-150 data-[state=open]:bg-white/10">
             <div className="flex items-center gap-4">
-              <HotelChainIcon className="bg-red" />
+              <HotelChainIcon />
 
               <span className="text-white">Disney Hotéis</span>
             </div>
