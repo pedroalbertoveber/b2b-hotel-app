@@ -77,6 +77,8 @@ module.exports = {
       },
       boxShadow: {
         menubar: '0px 7px 10px 0px rgba(158, 158, 158, 0.15);',
+        'sidebar-button':
+          '0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.26);',
       },
       keyframes: {
         'accordion-down': {

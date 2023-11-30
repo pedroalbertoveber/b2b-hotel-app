@@ -6,12 +6,12 @@ import { Container } from '@/components/core/Container'
 
 // Icons
 import {
-  Star,
-  Link,
-  TwitterLogo,
-  FacebookLogo,
-  InstagramLogo,
-} from '@phosphor-icons/react'
+  PiLink,
+  PiStarFill,
+  PiTwitterLogo,
+  PiFacebookLogo,
+  PiInstagramLogo,
+} from 'react-icons/pi'
 
 import { Pencil } from '@/common/icons'
 
@@ -42,11 +42,11 @@ export function HotelDetals() {
             <div className="flex flex-col">
               <span className="main-title">Hotel do Mickey</span>
               <div className="flex items-center justify-start gap-2">
-                <Star weight="fill" className="text-warning" size={20} />
-                <Star weight="fill" className="text-warning" size={20} />
-                <Star weight="fill" className="text-warning" size={20} />
-                <Star weight="fill" className="text-warning" size={20} />
-                <Star weight="fill" className="text-warning" size={20} />
+                <PiStarFill weight="fill" className="text-warning" size={20} />
+                <PiStarFill weight="fill" className="text-warning" size={20} />
+                <PiStarFill weight="fill" className="text-warning" size={20} />
+                <PiStarFill weight="fill" className="text-warning" size={20} />
+                <PiStarFill weight="fill" className="text-warning" size={20} />
               </div>
             </div>
           </div>
@@ -54,19 +54,19 @@ export function HotelDetals() {
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <Tooltip description="Link">
-              <Link size={24} className="text-primary" />
+              <PiLink size={24} className="text-primary" />
             </Tooltip>
 
             <Tooltip description="Facebook">
-              <FacebookLogo size={24} className="text-primary" />
+              <PiFacebookLogo size={24} className="text-primary" />
             </Tooltip>
 
             <Tooltip description="Instagram">
-              <InstagramLogo size={24} className="text-primary" />
+              <PiInstagramLogo size={24} className="text-primary" />
             </Tooltip>
 
             <Tooltip description="Twitter">
-              <TwitterLogo size={24} className="text-primary" />
+              <PiTwitterLogo size={24} className="text-primary" />
             </Tooltip>
 
             <Divisor direction="y" className="h-4" />

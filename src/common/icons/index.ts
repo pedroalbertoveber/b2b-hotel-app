@@ -1,7 +1,10 @@
 import { Gym } from './Gym'
+import { User } from './User'
 import { Wifi } from './Wifi'
 import { Pencil } from './Pencil'
 import { Parking } from './Parking'
+import { NavHotel } from './NavHotel'
+import { Dropdown } from './Dropdown'
 import { GolfField } from './GolfField'
 import { Breakfeast } from './Breakfeast'
 import { Television } from './Television'
@@ -16,8 +19,11 @@ import { ExpressCheckIn } from './ExpressCheckIn'
 export {
   Gym,
   Wifi,
+  User,
   Pencil,
   Parking,
+  Dropdown,
+  NavHotel,
   GolfField,
   WheelChair,
   Breakfeast,

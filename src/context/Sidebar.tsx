@@ -1,30 +1,25 @@
+// Core
 import { createContext, ReactNode, useState, useContext } from 'react'
 
 type SidebarContextProps = {
-  currentOpenedHotel: string | null
-  handleChangeOpenedHotel: (hotel: string) => void
+  isOpended: boolean
+  handleToggleMenu: () => void
 }
 
 export const SidebarContext = createContext<SidebarContextProps | null>(null)
 
 export function SidebarContextProvider({ children }: { children: ReactNode }) {
-  const [currentOpenedHotel, setCurrentOpenedHotel] = useState<string | null>(
-    null,
-  )
+  const [isOpended, setIsOpened] = useState(true)
 
-  function handleChangeOpenedHotel(hotel: string) {
-    if (currentOpenedHotel === hotel) {
-      return setCurrentOpenedHotel(null)
-    } else {
-      setCurrentOpenedHotel(hotel)
-    }
+  function handleToggleMenu() {
+    setIsOpened((prevState) => !prevState)
   }
 
   return (
     <SidebarContext.Provider
       value={{
-        currentOpenedHotel,
-        handleChangeOpenedHotel,
+        isOpended,
+        handleToggleMenu,
       }}
     >
       {children}

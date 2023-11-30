@@ -1,8 +1,16 @@
-export function HotelChainIcon({ temp = true }: { temp?: boolean }) {
+type HotelChainIconProps = {
+  temp?: boolean
+  size?: number
+}
+
+export function HotelChainIcon({
+  temp = true,
+  size = 22,
+}: HotelChainIconProps) {
   return temp ? (
     <svg
-      width="22"
-      height="22"
+      width={size}
+      height={size}
       viewBox="0 0 62 56"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,9 +24,9 @@ export function HotelChainIcon({ temp = true }: { temp?: boolean }) {
     </svg>
   ) : (
     <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

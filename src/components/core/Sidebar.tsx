@@ -1,69 +1,158 @@
-// Assets
-import LogoPng from '@/assets/images/dark-logo.png'
-
 // Components
-
-// Icons
-import { CaretDown } from '@phosphor-icons/react'
-import { HotelChainIcon } from '@/common/icons'
-
-// Libs
-import { Link, LinkProps } from 'react-router-dom'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible'
 
+// Icons
+import { FaBed, FaUserCog } from 'react-icons/fa'
+import { PiSealWarningFill } from 'react-icons/pi'
+import { MdPolicy, MdBookOnline, MdApartment } from 'react-icons/md'
+import { HotelChainIcon, User, Dropdown, NavHotel } from '@/common/icons'
+
+// Libs
+import { motion as m } from 'framer-motion'
+import { Link, LinkProps } from 'react-router-dom'
+
+// Contexts
+import { useSidebarContext } from '@/context/Sidebar'
+
 export function Sidebar() {
+  const { isOpended } = useSidebarContext()
+
   return (
-    <aside className="fixed bottom-0 left-0 top-0 z-10 w-[260px] bg-sidebar px-4">
-      <div className="flex w-full items-center justify-start py-8">
-        <img src={LogoPng} alt="Logo" />
-      </div>
-
-      <div className="flex w-full items-center justify-between border-y border-white/10 px-3 py-4">
+    <m.aside
+      animate={{ width: isOpended ? 260 : 80 }}
+      data-state={isOpended ? 'opened' : 'closed'}
+      className="group fixed bottom-0 left-0 top-0 z-10 bg-sidebar px-4 data-[state=closed]:w-[80px] data-[state=opened]:w-[260px]"
+    >
+      <div className="mt-[64px] flex w-full items-center justify-between border-y border-primary-900/50 py-5">
         <div className="flex items-center gap-4">
-          <img
-            src="https://github.com/diego3g.png"
-            alt=""
-            className="h-10 w-10 rounded-full object-cover"
-          />
+          <button
+            type="button"
+            className="shadow-sidebar-button flex h-10 w-10 items-center justify-center rounded-full bg-transparent object-cover duration-150 hover:bg-background active:opacity-50"
+          >
+            <User />
+          </button>
 
-          <span className="text-white">Fulano de Tal</span>
+          <span
+            data-state={isOpended ? 'opened' : 'closed'}
+            className="text-white data-[state=closed]:sr-only"
+          >
+            Fulano de Tal
+          </span>
         </div>
-
-        <CaretDown className="text-white" />
       </div>
 
-      <nav className="mt-8 flex w-full flex-col">
+      <nav className="mt-4 flex w-full flex-col gap-2">
         <Collapsible className="w-full space-y-2">
-          <CollapsibleTrigger className="group flex w-full items-center justify-between rounded-md bg-white/10 px-3 py-4 duration-150 data-[state=open]:bg-white/10">
-            <div className="flex items-center gap-4">
-              <HotelChainIcon />
+          <CollapsibleTrigger
+            data-sidebar={isOpended ? 'opened' : 'closed'}
+            className="group flex w-full items-center justify-between rounded-md bg-white/10 py-2 duration-150 data-[state=open]:bg-white/10 data-[sidebar=closed]:px-2 data-[sidebar=opened]:px-3"
+          >
+            <div
+              data-state={isOpended ? 'opened' : 'closed'}
+              className="flex items-center gap-4 data-[state=closed]:gap-0"
+            >
+              <HotelChainIcon size={20} />
 
-              <span className="text-white">Disney Hotéis</span>
+              <span
+                data-state={isOpended ? 'opened' : 'closed'}
+                className="uppercase text-white data-[state=closed]:sr-only"
+              >
+                Disney Hotéis
+              </span>
+
+              <Dropdown />
             </div>
-
-            <CaretDown className="text-white duration-150 group-data-[state=open]:rotate-180" />
           </CollapsibleTrigger>
 
           <CollapsibleContent>
             <NavItem isActive to="details">
-              Detalhes
+              <span className="group-data-[state=closed]:sr-only">
+                Detalhes
+              </span>
+
+              <PiSealWarningFill
+                className="text-white group-data-[state=opened]:sr-only"
+                weight="fill"
+                size={24}
+              />
             </NavItem>
 
-            <NavItem to="/uh">UHs</NavItem>
+            <NavItem to="#">
+              <span className="group-data-[state=closed]:sr-only">Hotéis</span>
+              <FaBed
+                className="text-white group-data-[state=opened]:sr-only"
+                weight="fill"
+                size={24}
+              />
+            </NavItem>
 
-            <NavItem to="/policies">Políticas</NavItem>
+            <NavItem to="#">
+              <span className="group-data-[state=closed]:sr-only">
+                Políticas
+              </span>
+              <MdPolicy
+                className="text-white group-data-[state=opened]:sr-only"
+                weight="fill"
+                size={24}
+              />
+            </NavItem>
 
-            <NavItem to="/taxes">Tarifas</NavItem>
+            <NavItem to="#">
+              <span className="group-data-[state=closed]:sr-only">
+                Minhas Reservas
+              </span>
+              <MdBookOnline
+                className="text-white group-data-[state=opened]:sr-only"
+                weight="fill"
+                size={24}
+              />
+            </NavItem>
 
-            <NavItem to="/invetary">Inventário</NavItem>
+            <NavItem to="#">
+              <span className="group-data-[state=closed]:sr-only">
+                Clientes
+              </span>
+              <FaUserCog
+                className="text-white group-data-[state=opened]:sr-only"
+                weight="fill"
+                size={24}
+              />
+            </NavItem>
+
+            <NavItem to="#">
+              <span className="group-data-[state=closed]:sr-only">Rede</span>
+              <MdApartment
+                className="text-white group-data-[state=opened]:sr-only"
+                weight="fill"
+                size={24}
+              />
+            </NavItem>
           </CollapsibleContent>
         </Collapsible>
+
+        <Link
+          data-sidebar={isOpended ? 'opened' : 'closed'}
+          data-active={false}
+          to="#"
+          className="group flex w-full items-center gap-4 rounded-md bg-white/10 py-2 duration-150 data-[sidebar=closed]:w-full data-[sidebar=open]:justify-start data-[sidebar=closed]:justify-center data-[sidebar=open]:bg-white/10 data-[sidebar=closed]:px-0 data-[sidebar=opened]:px-3"
+        >
+          <NavHotel />
+
+          <div
+            data-state={isOpended ? 'opened' : 'closed'}
+            className="flex items-center justify-center gap-2 data-[state=closed]:hidden"
+          >
+            <span className="text-white">Channel Manager</span>
+
+            <PiSealWarningFill size={24} className="text-white" />
+          </div>
+        </Link>
       </nav>
-    </aside>
+    </m.aside>
   )
 }
 
@@ -77,12 +166,15 @@ export function NavItem({
   isDisabled = false,
   ...props
 }: NavItemProps) {
+  const { isOpended } = useSidebarContext()
+
   return (
     <Link
+      {...props}
+      data-state={isOpended ? 'opened' : 'closed'}
       data-disabled={isDisabled}
       data-active={isActive}
-      className="flex items-start rounded-md bg-transparent py-2 pl-12 pr-4 text-white duration-150 data-[active=true]:cursor-auto data-[disabled=true]:cursor-auto data-[active=true]:bg-primary data-[disabled=true]:opacity-50 data-[disabled=false]:data-[active=false]:hover:bg-primary"
-      {...props}
+      className="group flex items-start rounded-md bg-transparent py-2 pl-12 pr-4 text-white duration-150 data-[active=true]:cursor-auto data-[disabled=true]:cursor-auto data-[state=closed]:justify-center data-[active=true]:bg-secondary data-[state=closed]:px-0 data-[state=opened]:pl-12 data-[disabled=true]:opacity-50 data-[disabled=false]:data-[active=false]:hover:bg-secondary"
     />
   )
 }

@@ -2,37 +2,55 @@
 import type { ComponentProps } from 'react'
 
 // Icons
+import { FaUser } from 'react-icons/fa'
 import {
-  User,
-  Bell,
-  MagnifyingGlass,
-  List,
-  Question,
-} from '@phosphor-icons/react'
+  PiListBold,
+  PiBellFill,
+  PiQuestionFill,
+  PiMagnifyingGlass,
+} from 'react-icons/pi'
 
+// Components
+import { Button } from '../ui/button'
+
+// Assets
 import LightLogo from '@/assets/images/light-logo.png'
 
+// Contexts
+import { useSidebarContext } from '@/context/Sidebar'
+
 export function Header() {
+  const { handleToggleMenu } = useSidebarContext()
+
   return (
     <header className="menu-shadow fixed right-0 top-0 z-20 flex min-h-[64px] w-full justify-center bg-[#f8f8f8]">
       <div className="mx-6 flex w-full max-w-[1480px] items-center justify-between">
         {/* <Input type="text" placeholder="Pesquisar" /> */}
 
         <div className="flex gap-4">
-          <List size={26} weight="fill" className="text-black" />
-          <img src={LightLogo} alt="Avatar" />
+          <Button
+            type="button"
+            variant="ghost"
+            className="rounded-full p-2"
+            onClick={handleToggleMenu}
+          >
+            <PiListBold size={26} weight="fill" className="text-black" />
+          </Button>
+
+          <img src={LightLogo} alt="Avatar" className="object-contain" />
         </div>
+
         <div className="flex items-center justify-end gap-4">
           <div className="cursor-pointer rounded-full bg-transparent text-white duration-150 hover:bg-white/10">
-            <Question size={24} weight="fill" className="text-black" />
+            <PiQuestionFill size={24} weight="fill" className="text-black" />
           </div>
 
           <div className="cursor-pointer rounded-full bg-transparent text-white duration-150 hover:bg-white/10">
-            <Bell size={24} weight="fill" className="text-black" />
+            <PiBellFill size={24} weight="fill" className="text-black" />
           </div>
 
           <div className="cursor-pointer rounded-full bg-transparent text-white duration-150 hover:bg-white/10">
-            <User weight="fill" className="text-black" size={24} />
+            <FaUser weight="fill" className="text-black" size={24} />
           </div>
         </div>
       </div>
@@ -49,7 +67,7 @@ export function Input(props: ComponentProps<'input'>) {
       />
 
       <button type="button">
-        <MagnifyingGlass size={22} className="text-white" />
+        <PiMagnifyingGlass size={22} className="text-white" />
       </button>
     </label>
   )
