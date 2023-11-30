@@ -1,6 +1,6 @@
 // Components
-import { Container } from '@/components/Container'
-import { Tooltip } from '@/components/Tooltip'
+import { Container } from '@/components/core/Container'
+import { Tooltip } from '@/components/core/Tooltip'
 
 // Icons
 import { Pencil, Attachment } from '@/common/icons'

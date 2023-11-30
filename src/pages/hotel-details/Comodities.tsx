@@ -1,6 +1,6 @@
 // Components
-import { Container } from '@/components/Container'
-import { Tooltip } from '@/components/Tooltip'
+import { Container } from '@/components/core/Container'
+import { Tooltip } from '@/components/core/Tooltip'
 
 // Icons
 import {
@@ -20,7 +20,7 @@ export function Comodities() {
   return (
     <Container className="space-y-6">
       <div className="flex w-full items-center justify-between">
-        <span className="sub-title">Comididades</span>
+        <span className="sub-title">Comodidades</span>
 
         <Tooltip description="Editar">
           <Pencil />

@@ -1,8 +1,8 @@
 // Components
-import { Divisor } from '@/components/Divisor'
-import { Tooltip } from '@/components/Tooltip'
-import * as Menubar from '@/components/Menubar'
-import { Container } from '@/components/Container'
+import { Divisor } from '@/components/core/Divisor'
+import { Tooltip } from '@/components/core/Tooltip'
+import * as Menubar from '@/components/core/Tabs'
+import { Container } from '@/components/core/Container'
 
 // Icons
 import {
