@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react'
 // Libs
 import { twMerge } from 'tailwind-merge'
 
-export function Container({ className, ...props }: ComponentProps<'div'>) {
+export function Whitebox({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       {...props}

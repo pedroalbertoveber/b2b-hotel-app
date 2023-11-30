@@ -7,8 +7,8 @@ import '@aws-amplify/ui-react/styles.css'
 import '@/config/index'
 
 // Components
-import { Sidebar } from '@/components/core/Sidebar'
-import { Header } from './components/core/Header'
+import { Sidebar } from '@/components/ApplicationCore/Sidebar'
+import { Header } from './components/ApplicationCore/Header'
 
 export function App() {
   return (
@@ -16,9 +16,11 @@ export function App() {
       <div className="flex flex-col">
         <Header />
         <div className="flex">
-          <Sidebar />
+          <div className="hidden lg:block">
+            <Sidebar />
+          </div>
           <BrowserRouter>
-            <main className="ml-auto mt-[64px] w-[calc(100vw-260px)] bg-background">
+            <main className="mt-[64px] w-full bg-background lg:ml-auto lg:w-[calc(100vw-260px)]">
               <Router />
             </main>
           </BrowserRouter>
