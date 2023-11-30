@@ -3,14 +3,11 @@ import { Router } from './routes'
 import { BrowserRouter } from 'react-router-dom'
 
 // Components
-import { Sidebar } from '@/components/core/Sidebar'
-import { Header } from './components/core/Header'
+import { Sidebar } from './components/ApplicationCore/Sidebar'
+import { Header } from './components/ApplicationCore/Header'
 
 // Contexts
 import { useSidebarContext } from './context/Sidebar'
-
-// Libs
-import { motion as m } from 'framer-motion'
 
 export function App() {
   const { isOpended } = useSidebarContext()
@@ -22,15 +19,12 @@ export function App() {
 
         <Sidebar />
 
-        <m.main
-          animate={{
-            width: isOpended ? 'calc(100vw - 260px)' : 'calc(100vw - 80px)',
-          }}
+        <main
           data-sidebar={isOpended ? 'opened' : 'closed'}
-          className="ml-auto mt-[64px] bg-background "
+          className="ml-auto mt-[64px] w-full bg-background md:data-[sidebar=closed]:w-[calc(100vw-80px)] md:data-[sidebar=opened]:w-[calc(100vw-260px)]"
         >
           <Router />
-        </m.main>
+        </main>
       </BrowserRouter>
     </div>
   )

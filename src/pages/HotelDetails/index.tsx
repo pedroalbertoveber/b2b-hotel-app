@@ -1,13 +1,13 @@
 // Components
-import { Divisor } from '@/components/core/Divisor'
-import { Tooltip } from '@/components/core/Tooltip'
-import * as Menubar from '@/components/core/Tabs'
-import { Container } from '@/components/core/Container'
+import { Divisor } from '@/components/Atoms/Divisor'
+import { Tooltip } from '@/components/Utils/Tooltip'
+import * as Menubar from '@/components/Interactive/Tabs'
+import { Whitebox } from '@/components/PageBlocks/Whitebox'
 
 // Icons
 import {
-  PiLink,
   PiStarFill,
+  PiLink,
   PiTwitterLogo,
   PiFacebookLogo,
   PiInstagramLogo,
@@ -16,12 +16,12 @@ import {
 import { Pencil } from '@/common/icons'
 
 // Sections
-import { Legal } from './Legal'
-import { General } from './General'
-import { Taxes } from './Taxes'
-import { Comodities } from './Comodities'
+// import { Legal } from './GeneralInformation/Legal/Legal'
+// import General from './GeneralInformation/General/General'
+// import { Taxes } from './GeneralInformation/Taxes'
+// import { Comodities } from './GeneralInformation/Comodities'
 
-export function HotelDetals() {
+export function HotelDetails() {
   return (
     <>
       {/* Page header */}
@@ -97,15 +97,15 @@ export function HotelDetals() {
           value="general-info"
           className="mt-6 grid w-full grid-cols-2 gap-2 duration-150 peer-hover:mt-8"
         >
-          <General />
+          {/* <General /> */}
 
-          <Legal />
+          {/* <Legal />
 
           <Comodities />
 
-          <Taxes />
+          <Taxes /> */}
 
-          <Container className="col-span-2"></Container>
+          <Whitebox className="col-span-2"></Whitebox>
         </Menubar.Content>
       </Menubar.Root>
     </>

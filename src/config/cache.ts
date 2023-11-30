@@ -1,41 +1,41 @@
 export const CACHE_PATH = {
-  HOTELCHAIN: "hotels-chain",
+  HOTELCHAIN: 'hotels-chain',
   FILTER: {
-    FILTER: "filter",
+    FILTER: 'filter',
   },
   USER: {
-    AGENCIES_STORES: "agencies_stores",
+    AGENCIES_STORES: 'agencies_stores',
   },
   LOCALES: {
-    CITIES: "cities",
+    CITIES: 'cities',
   },
   AVAILABILITY: {
-    HOTELS: "hotels",
-    SEARCH_QUERY: "search_query",
+    HOTELS: 'hotels',
+    SEARCH_QUERY: 'search_query',
   },
   USER_INTERACTION: {
-    CURRENT_HOTEL: "current_hotel",
-    CURRENT_APARTAMENT_INDEX: "current_apartament_index",
-    CURRENT_RATE_INDEX: "current_rate_index",
+    CURRENT_HOTEL: 'current_hotel',
+    CURRENT_APARTAMENT_INDEX: 'current_apartament_index',
+    CURRENT_RATE_INDEX: 'current_rate_index',
   },
   CUSTOMER: {
-    DEFAULT: "customer",
+    DEFAULT: 'customer',
   },
   CARDS: {
-    DEFAULT: "available-cards",
+    DEFAULT: 'available-cards',
   },
   HOTELS: {
-    DEFAULT: "hotels",
-    CURRENT_HOTEL_DETAILS: "current_hotel_details",
+    DEFAULT: 'hotels',
+    CURRENT_HOTEL_DETAILS: 'current_hotel_details',
   },
   BOOKING: {
-    DEFAULT: "bookings",
-    BOOKING_QUERY: "booking_query",
+    DEFAULT: 'bookings',
+    BOOKING_QUERY: 'booking_query',
   },
   BOOKING_ATTRIBUTES: {
-    DEFAULT: "custom-attributes",
+    DEFAULT: 'custom-attributes',
   },
   SOLICITATION: {
-    SOLICITATION_QUERY: "solicitation_query",
+    SOLICITATION_QUERY: 'solicitation_query',
   },
-} as const;
+} as const

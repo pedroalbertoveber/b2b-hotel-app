@@ -14,7 +14,7 @@ export function List({ className, ...props }: TabsPrimitive.TabsListProps) {
     <TabsList
       {...props}
       className={twMerge(
-        'w-full rounded-[10px] border border-divider/20 bg-white p-2 shadow-menubar',
+        'flex w-full flex-col rounded-[10px] border border-divider/20 bg-white p-2 shadow-menubar md:flex-row',
         className,
       )}
     />

@@ -25,13 +25,13 @@ export function Sidebar() {
     <m.aside
       animate={{ width: isOpended ? 260 : 80 }}
       data-state={isOpended ? 'opened' : 'closed'}
-      className="group fixed bottom-0 left-0 top-0 z-10 bg-sidebar px-4 data-[state=closed]:w-[80px] data-[state=opened]:w-[260px]"
+      className="group fixed bottom-0 left-0 top-0 z-10 hidden bg-sidebar px-4 data-[state=closed]:w-[80px] data-[state=opened]:w-[260px] md:block"
     >
       <div className="mt-[64px] flex w-full items-center justify-between border-y border-primary-900/50 py-5">
         <div className="flex items-center gap-4">
           <button
             type="button"
-            className="shadow-sidebar-button flex h-10 w-10 items-center justify-center rounded-full bg-transparent object-cover duration-150 hover:bg-background active:opacity-50"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-transparent object-cover shadow-sidebar-button duration-150 hover:bg-background active:opacity-50"
           >
             <User />
           </button>
