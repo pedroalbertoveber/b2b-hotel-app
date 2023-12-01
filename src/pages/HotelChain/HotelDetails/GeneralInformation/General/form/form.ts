@@ -1,8 +1,13 @@
-import { zodResolver } from '@hookform/resolvers/zod'
+// Hooks
 import { useForm } from 'react-hook-form'
+
+// Resolvers
+import { zodResolver } from '@hookform/resolvers/zod'
+
+// Form
 import { Form, Schema } from '../Schema/schema'
 
-export default function SectionForm({ data }) {
+export function SectionForm({ data }) {
   const defaultValues = {
     corporateName: data.corporateName,
     taxPayerRegistryCode: data.taxpayerId,

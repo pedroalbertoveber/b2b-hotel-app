@@ -18,6 +18,9 @@ module.exports = {
       },
     },
     extend: {
+      fontSize: {
+        'title-sm': '1.125rem',
+      },
       colors: {
         black: '#24262B',
         white: '#FFFFFF',
