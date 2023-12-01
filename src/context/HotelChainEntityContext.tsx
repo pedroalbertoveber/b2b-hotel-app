@@ -24,7 +24,11 @@ export function HotelChainEntityContextProvider({
     HotelChain: HotelChainEntity
   } = entities
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    if (entities.UsersHome.hook.hotelsChain.alphaId) {
+      HotelChain.getRatePolicies(entities.UsersHome.hook.hotelsChain.alphaId)
+    }
+  }, [entities.UsersHome.hook.hotelsChain.alphaId])
 
   return (
     <HotelChainEntityContext.Provider

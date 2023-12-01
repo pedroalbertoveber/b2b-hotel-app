@@ -67,7 +67,7 @@ export function Sidebar() {
           </CollapsibleTrigger>
 
           <CollapsibleContent>
-            <NavItem isActive to="details">
+            <NavItem isActive to="/">
               <span className="group-data-[state=closed]:sr-only">
                 Detalhes
               </span>
@@ -79,7 +79,7 @@ export function Sidebar() {
               />
             </NavItem>
 
-            <NavItem to="#">
+            <NavItem to="/hotelChain/hotels">
               <span className="group-data-[state=closed]:sr-only">Hotéis</span>
               <FaBed
                 className="text-white group-data-[state=opened]:sr-only"
@@ -88,7 +88,7 @@ export function Sidebar() {
               />
             </NavItem>
 
-            <NavItem to="#">
+            <NavItem to="/hotelChain/policy">
               <span className="group-data-[state=closed]:sr-only">
                 Políticas
               </span>
@@ -99,7 +99,7 @@ export function Sidebar() {
               />
             </NavItem>
 
-            <NavItem to="#">
+            <NavItem to="/hotelChain/reserves">
               <span className="group-data-[state=closed]:sr-only">
                 Minhas Reservas
               </span>
@@ -110,7 +110,7 @@ export function Sidebar() {
               />
             </NavItem>
 
-            <NavItem to="#">
+            <NavItem to="hotelChain/clients">
               <span className="group-data-[state=closed]:sr-only">
                 Clientes
               </span>
@@ -121,7 +121,7 @@ export function Sidebar() {
               />
             </NavItem>
 
-            <NavItem to="#">
+            <NavItem to="hotelChain/chain">
               <span className="group-data-[state=closed]:sr-only">Rede</span>
               <MdApartment
                 className="text-white group-data-[state=opened]:sr-only"

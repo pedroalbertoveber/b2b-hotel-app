@@ -46,7 +46,7 @@ export abstract class CoreEntity {
   }: {
     method?: string
     config?: AxiosRequestConfig
-    params?: { [key: string]: string | number }
+    params?: { [key: string]: string | number | boolean }
     forceUpdate?: boolean
     setCache?: boolean
     revalidate?: number

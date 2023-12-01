@@ -7,4 +7,8 @@ export const CACHE_PATH = {
   HOTELS: {
     DEFAULT: 'HOTELS_DEFAULT',
   },
+  HOTELS_CHAIN: {
+    DEFAULT: 'HOTELS_CHAIN_DEFAULT',
+    POLICY: 'HOTELS_CHAIN_POLICY',
+  },
 } as const
