@@ -4,17 +4,16 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 
-export default function ModalHeader({
-  title,
-  description,
-}: {
+type ModalHeaderProps = {
   title: string
-  description: string
-}) {
+  description?: string
+}
+
+export default function ModalHeader({ title, description }: ModalHeaderProps) {
   return (
     <DialogHeader>
       <DialogTitle>{title}</DialogTitle>
-      <DialogDescription>{description}</DialogDescription>
+      {description && <DialogDescription>{description}</DialogDescription>}
     </DialogHeader>
   )
 }

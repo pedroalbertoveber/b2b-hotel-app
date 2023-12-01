@@ -7,7 +7,7 @@ export const Schema = z.object({
     })
     .min(2),
   taxPayerRegistryCode: z.string(),
-  stateCompanyRegNumber: z.string(),
+  stateCompanyRegNumber: z.union([z.string(), z.number()]),
   exemptedStateCompanyRegNumber: z.boolean(),
 })
 

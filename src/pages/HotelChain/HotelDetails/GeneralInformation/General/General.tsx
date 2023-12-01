@@ -1,11 +1,24 @@
+// Core
+import { useState } from 'react'
+
+// Components
 import { B2BPattern } from '@/components'
 import BasicInfo from '../../Components/BasicInfo'
-import { useState } from 'react'
-import { FaPencil } from 'react-icons/fa6'
+import { FormComponents } from '@/components/FormComponents'
+
+// Modal
 import SectionModal from './Modal/SectionModal'
+
+// Icons
+import { FaPencil } from 'react-icons/fa6'
 
 export default function General({ data }) {
   const [open, setOpen] = useState(false)
+
+  function handleOpenModal() {
+    setOpen(true)
+  }
+
   return (
     <>
       <B2BPattern.Containers.Whitebox className="gap-2 lg:gap-4">
@@ -14,14 +27,13 @@ export default function General({ data }) {
             title="Informações Gerais"
             classes="text-[1rem] uppercase font-[600]"
           />
-          <button
-            onClick={() => {
-              setOpen(true)
-            }}
+          <FormComponents.Button
+            onClick={handleOpenModal}
             type="button"
+            variant="ghost-primary"
           >
             <FaPencil />
-          </button>
+          </FormComponents.Button>
         </div>
         <div className="mt-6 flex flex-col gap-4">
           <BasicInfo

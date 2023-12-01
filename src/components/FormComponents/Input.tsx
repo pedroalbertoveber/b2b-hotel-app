@@ -16,7 +16,7 @@ const inputVariants = tv({
     },
   },
   defaultVariants: {
-    variant: 'form',
+    variant: 'filter',
   },
 })
 

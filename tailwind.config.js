@@ -147,6 +147,7 @@ module.exports = {
       },
       fontSize: {
         large: '1.5rem',
+        titleSm: '1.125rem',
         normal: '1rem',
         small: '0.75rem',
         extraSmall: '0.625rem',
