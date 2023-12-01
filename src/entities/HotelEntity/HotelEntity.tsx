@@ -5,7 +5,7 @@ import { HttpMethods } from './methods'
 export default class HotelEntity extends CoreEntity {
   constructor() {
     super({
-      baseUrl: '',
+      baseUrl: 'hotels',
       cachePath: '',
     })
   }

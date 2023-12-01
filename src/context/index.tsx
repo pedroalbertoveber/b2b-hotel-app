@@ -1,6 +1,7 @@
 import { AvailEntityContextProvider } from './AvailEntityContext'
 import { HotelChainEntityContextProvider } from './HotelChainEntityContext'
 import { HotelEntityContextProvider } from './HotelEntityContext'
+import { UsersHomeEntityContextProvider } from './UsersHomeEntityContext'
 
 export default function ContextWrapper({
   children,
@@ -10,7 +11,11 @@ export default function ContextWrapper({
   return (
     <AvailEntityContextProvider>
       <HotelChainEntityContextProvider>
-        <HotelEntityContextProvider>{children}</HotelEntityContextProvider>
+        <HotelEntityContextProvider>
+          <UsersHomeEntityContextProvider>
+            {children}
+          </UsersHomeEntityContextProvider>
+        </HotelEntityContextProvider>
       </HotelChainEntityContextProvider>
     </AvailEntityContextProvider>
   )

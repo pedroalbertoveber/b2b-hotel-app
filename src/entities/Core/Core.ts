@@ -13,11 +13,8 @@ import { verifyIfIsExpired } from './helpers/verify-if-is-expired'
 import { AxiosRequestConfig } from 'axios'
 import { B2BApi } from '@/services/api/B2BApi'
 import { makeParams } from './helpers/makeParams'
-import { HttpMethods } from './methods'
-
-const REVALIDATE = 1000 * 60 * 20 // 20 minutes
-
 export abstract class CoreEntity {
+  REVALIDATE = 1000 * 60 * 20 // 20 minutes
   private _baseUrl: string
   private _cachePath: string
 
@@ -39,16 +36,16 @@ export abstract class CoreEntity {
   CACHE_PATH = CACHE_PATH
 
   async getHttp({
-    method,
-    config,
+    method = '',
+    config = {},
     params = {},
     forceUpdate = true,
     setCache = true,
-    revalidate = REVALIDATE,
+    revalidate = this.REVALIDATE,
     cachePath = this.cachePath,
   }: {
     method?: string
-    config: AxiosRequestConfig
+    config?: AxiosRequestConfig
     params?: { [key: string]: string | number }
     forceUpdate?: boolean
     setCache?: boolean
@@ -63,7 +60,7 @@ export abstract class CoreEntity {
       Object.keys(params).length > 0
         ? `${this.baseUrl}/${method}?${parameters}`
         : `${this.baseUrl}/${method}`
-    const data = await B2BApi.get(url, config)
+    const { data } = await B2BApi.get(url, config)
 
     if (setCache) {
       this.setLocalStorage({
@@ -82,7 +79,7 @@ export abstract class CoreEntity {
     body = {},
     forceUpdate = true,
     setCache = true,
-    revalidate = REVALIDATE,
+    revalidate = this.REVALIDATE,
     cachePath = this.cachePath,
   }: {
     method?: string
@@ -119,7 +116,7 @@ export abstract class CoreEntity {
     body = {},
     forceUpdate = true,
     setCache = true,
-    revalidate = REVALIDATE,
+    revalidate = this.REVALIDATE,
     cachePath = this.cachePath,
   }: {
     method?: string
@@ -171,7 +168,7 @@ export abstract class CoreEntity {
     return data
   }
 
-  private async getFromLocalStorage<ReturnType = unknown>(storageKey?: string) {
+  async getFromLocalStorage<ReturnType = unknown>(storageKey?: string) {
     const key = storageKey || this.cachePath
     const data = localStorage.getItem(key)
 
@@ -192,9 +189,9 @@ export abstract class CoreEntity {
     return storedData as ReturnType
   }
 
-  private async setLocalStorage({
+  async setLocalStorage({
     data,
-    revalidate,
+    revalidate = this.REVALIDATE,
     key,
   }: SetLocalStorageProps): Promise<void> {
     const expiration = createExpirationDate(revalidate)
@@ -208,7 +205,7 @@ export abstract class CoreEntity {
     )
   }
 
-  private async removeLocalStorage({ key }: { key?: string }): Promise<void> {
+  async removeLocalStorage({ key }: { key?: string }): Promise<void> {
     localStorage.removeItem(key || this.cachePath)
   }
 }

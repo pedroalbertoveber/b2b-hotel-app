@@ -6,7 +6,7 @@ type EntityConstructorProps = {
 type SetLocalStorageProps = {
   key?: string
   data: unknown
-  revalidate: number
+  revalidate?: number
 }
 
 type LocalStorageItemType<DataType> = {
