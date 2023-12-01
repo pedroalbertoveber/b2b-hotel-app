@@ -1,4 +1,4 @@
-import { HotelDetails } from '@/pages/HotelDetails'
+import { HotelDetails } from '@/pages/HotelChain/HotelDetails'
 import { Routes, Route } from 'react-router-dom'
 
 export function Router() {

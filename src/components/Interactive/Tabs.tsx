@@ -14,7 +14,7 @@ export function List({ className, ...props }: TabsPrimitive.TabsListProps) {
     <TabsList
       {...props}
       className={twMerge(
-        'flex w-full flex-col rounded-[10px] border border-divider/20 bg-white p-2 shadow-menubar md:flex-row',
+        'flex w-full flex-col items-center justify-center rounded-[10px] border border-divider/20 bg-white shadow-menubar md:flex-row',
         className,
       )}
     />
@@ -29,7 +29,7 @@ export function Trigger({
     <TabsTrigger
       {...props}
       className={twMerge(
-        'w-full rounded-[10px] bg-transparent py-2 text-xs font-semibold uppercase text-primary duration-150 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:hover:bg-zinc-100',
+        'h-full w-full rounded-[10px] bg-transparent text-xs font-semibold uppercase text-primary duration-150 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:hover:bg-zinc-100',
         className,
       )}
     />

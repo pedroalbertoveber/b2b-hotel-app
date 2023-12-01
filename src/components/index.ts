@@ -1,3 +1,4 @@
+import { Modal } from './Popups/Modal/index'
 import { Whitebox } from './PageBlocks/Whitebox'
 import Container from './PageBlocks/Container'
 import { Divisor } from './Atoms/Divisor'
@@ -17,5 +18,8 @@ export const B2BPattern = {
   Texts: {
     Title,
     Subtitle,
+  },
+  Popups: {
+    Modal,
   },
 }

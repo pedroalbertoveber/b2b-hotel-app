@@ -50,7 +50,7 @@ export function Header() {
           </div>
 
           <div className="cursor-pointer rounded-full bg-transparent text-white duration-150 hover:bg-white/10">
-            <FaUser weight="fill" className="text-black" size={24} />
+            <FaUser weight="fill" className="text-black" size={19} />
           </div>
         </div>
       </div>

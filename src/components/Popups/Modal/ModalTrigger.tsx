@@ -6,5 +6,5 @@ export default function ModalTrigger({
 }: {
   children: React.ReactNode
 }) {
-  return <DialogTrigger>{children}</DialogTrigger>
+  return <DialogTrigger asChild>{children}</DialogTrigger>
 }
