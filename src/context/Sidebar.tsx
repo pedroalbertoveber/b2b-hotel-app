@@ -1,5 +1,11 @@
 // Core
-import { createContext, ReactNode, useState, useContext } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useState,
+  useContext,
+  useEffect,
+} from 'react'
 
 type SidebarContextProps = {
   isOpended: boolean
@@ -9,7 +15,11 @@ type SidebarContextProps = {
 export const SidebarContext = createContext<SidebarContextProps | null>(null)
 
 export function SidebarContextProvider({ children }: { children: ReactNode }) {
-  const [isOpended, setIsOpened] = useState(true)
+  const screenWidht: number = window.innerWidth
+
+  const isMd = screenWidht > 768
+
+  const [isOpended, setIsOpened] = useState(isMd)
 
   function handleToggleMenu() {
     setIsOpened((prevState) => !prevState)

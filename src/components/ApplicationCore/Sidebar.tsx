@@ -12,7 +12,6 @@ import { MdPolicy, MdBookOnline, MdApartment } from 'react-icons/md'
 import { HotelChainIcon, User, Dropdown, NavHotel } from '@/common/icons'
 
 // Libs
-import { motion as m } from 'framer-motion'
 import { Link, LinkProps } from 'react-router-dom'
 
 // Contexts
@@ -22,10 +21,9 @@ export function Sidebar() {
   const { isOpended } = useSidebarContext()
 
   return (
-    <m.aside
-      animate={{ width: isOpended ? 260 : 80 }}
-      data-state={isOpended ? 'opened' : 'closed'}
-      className="group fixed bottom-0 left-0 top-0 z-10 hidden bg-sidebar px-4 data-[state=closed]:w-[80px] data-[state=opened]:w-[260px] md:block"
+    <aside
+      data-opened={isOpended}
+      className="group fixed bottom-0 left-0 top-0 z-10 bg-sidebar px-4 data-[opened=false]:w-auto data-[opened=true]:w-full data-[opened=false]:translate-x-[-92px] data-[opened=true]:translate-x-0 md:data-[opened=false]:w-[80px] md:data-[opened=true]:w-[260px] md:data-[opened=false]:translate-x-0"
     >
       <div className="mt-[64px] flex w-full items-center justify-between border-y border-primary-900/50 py-5">
         <div className="flex items-center gap-4">
@@ -152,7 +150,7 @@ export function Sidebar() {
           </div>
         </Link>
       </nav>
-    </m.aside>
+    </aside>
   )
 }
 
