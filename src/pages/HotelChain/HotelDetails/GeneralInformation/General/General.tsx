@@ -1,5 +1,5 @@
 // Core
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Components
 import { B2BPattern } from '@/components'
@@ -12,8 +12,14 @@ import SectionModal from './Modal/SectionModal'
 // Icons
 import { Pencil } from '@/common/icons'
 import { Tooltip } from '@/components/Utils/Tooltip'
+import { useUsersHomeEntityContext } from '@/context/UsersHomeEntityContext'
 
-export default function General({ data }) {
+export default function General() {
+  const {
+    UsersHome: {
+      hook: { hotelsChain },
+    },
+  } = useUsersHomeEntityContext()
   const [open, setOpen] = useState(false)
 
   function handleOpenModal() {
@@ -41,23 +47,26 @@ export default function General({ data }) {
         <div className="mt-6 flex flex-col gap-4">
           <BasicInfo
             info="Razão Social"
-            value={data ? data.corporateName : ''}
+            value={hotelsChain ? hotelsChain.corporateName : ''}
           />
-          <BasicInfo info="CNPJ" value={data ? data.taxpayerId : ''} />
+          <BasicInfo
+            info="CNPJ"
+            value={hotelsChain ? hotelsChain.taxpayerId : ''}
+          />
           <BasicInfo
             info="Inscrição Estadual"
             value={
-              data
-                ? data.exemptedStateCompanyRegNumber
+              hotelsChain
+                ? hotelsChain.exemptedStateCompanyRegNumber
                   ? 'Isento'
-                  : data.stateCompanyRegNumber
+                  : hotelsChain.stateCompanyRegNumber
                 : ''
             }
           />
         </div>
       </B2BPattern.Containers.Whitebox>
 
-      <SectionModal open={open} setOpen={setOpen} data={data || []} />
+      <SectionModal open={open} setOpen={setOpen} />
     </>
   )
 }

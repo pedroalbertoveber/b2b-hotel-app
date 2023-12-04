@@ -20,7 +20,7 @@ export default class UsersHomeEntity extends CoreEntity {
 
   async getUsersHome() {
     const { hotels, hotelsChain }: any = await super.getHttp({
-      forceUpdate: false,
+      forceUpdate: true,
     })
 
     this.hook.setHotels(hotels)

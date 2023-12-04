@@ -1,18 +1,19 @@
-'use client';
+'use client'
 
-import { DashContext } from '@/app/(dashboard)/(context)/DashContext';
-import HotelClass from '@/classes/Hotel/HotelClass';
-import HotelChainClass from '@/classes/HotelChain/HotelChainClass';
-import { set } from '@/services/cache/cache';
-import { useContext, useState } from 'react';
+import { DashContext } from '@/app/(dashboard)/(context)/DashContext'
+import HotelClass from '@/classes/Hotel/HotelClass'
+import HotelChainClass from '@/classes/HotelChain/HotelChainClass'
+import { setCache } from '@/services/cache'
+import { set } from '@/services/cache/cache'
+import { useContext, useState } from 'react'
 
 export default function UsePaymentMethodHook({ policy }: { policy: any }) {
   const SetPaymentData = (
     activePaymentMethods: any,
     cardOnlyPhysical: any,
-    creditCards: any
+    creditCards: any,
   ) => {
-    let paymentMethodData = {};
+    let paymentMethodData = {}
     activePaymentMethods.forEach((e: any) => {
       if (e.paymentMethod === 'CREDIT_CARD') {
         paymentMethodData = {
@@ -22,7 +23,7 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
             onlyPhysical: cardOnlyPhysical,
             paymentMethod: 'CREDIT_CARD',
           },
-        };
+        }
       }
       if (e.paymentMethod === 'DIRECT') {
         paymentMethodData = {
@@ -30,7 +31,7 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
           directPaymentMethod: {
             paymentMethod: 'DIRECT',
           },
-        };
+        }
       }
 
       if (e.paymentMethod === 'BILLED') {
@@ -39,21 +40,21 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
           billedPaymentMethod: {
             paymentMethod: 'BILLED',
           },
-        };
+        }
       }
-    });
-    return paymentMethodData;
-  };
+    })
+    return paymentMethodData
+  }
 
   const {
     hotelChain,
     hotel,
   }: {
-    hotelChain: HotelChainClass;
-    hotel: HotelClass;
-  } = useContext(DashContext);
+    hotelChain: HotelChainClass
+    hotel: HotelClass
+  } = useContext(DashContext)
 
-  const paymentMethods = policy?.paymentMethod.data || [];
+  const paymentMethods = policy?.paymentMethod.data || []
   const paymentMethodsDefault = [
     {
       id: 1,
@@ -76,32 +77,32 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
       title: 'Faturado',
       checked: false,
     },
-  ];
+  ]
 
   const getPaymentMethodsChecked = () => {
     return paymentMethodsDefault.map((e: any) => {
-      return e.checked;
-    });
-  };
+      return e.checked
+    })
+  }
 
-  const [edit, setEdit] = useState(false);
-  const [enabled, setEnabled] = useState(getPaymentMethodsChecked);
+  const [edit, setEdit] = useState(false)
+  const [enabled, setEnabled] = useState(getPaymentMethodsChecked)
   const [cardOnlyPhysical, setCardOnlyPhysical] = useState(
-    policy?.paymentMethod.data.creditCardPaymentMethod.onlyPhysical
-  );
+    policy?.paymentMethod.data.creditCardPaymentMethod.onlyPhysical,
+  )
   const [creditCards, setCreditCards] = useState(
-    policy?.paymentMethod.data.creditCardPaymentMethod.creditCardBrands
-  );
+    policy?.paymentMethod.data.creditCardPaymentMethod.creditCardBrands,
+  )
 
   const findPaymentMethods = () => {
-    if (paymentMethods.length === 0) return;
+    if (paymentMethods.length === 0) return
     paymentMethodsDefault.forEach((e: any) => {
       const find = Object.values(paymentMethods).find((el: any) => {
-        return el.paymentMethod === e.name;
-      });
-      e.checked = find ? true : false;
-    });
-  };
+        return el.paymentMethod === e.name
+      })
+      e.checked = !!find
+    })
+  }
 
   // TODO - Ajeitar para informar quando não tiver nenhum metodo de pagamento selecionado
 
@@ -111,24 +112,24 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
   const handleSubmit = async () => {
     const activePaymentMethods = paymentMethodsDefault
       .filter((e: any, i: number) => {
-        if (enabled[i]) return e;
+        if (enabled[i]) return e
       })
       .map((e: any) => {
         return {
           paymentMethod: e.name,
-        };
-      });
+        }
+      })
 
     let rules: any = {
       paymentMethod: {
         data: SetPaymentData(
           activePaymentMethods,
           cardOnlyPhysical,
-          creditCards
+          creditCards,
         ),
         inherited: false,
       },
-    };
+    }
 
     activePaymentMethods.find((e: any) => {
       if (e.paymentMethod === 'CREDIT_CARD') {
@@ -144,30 +145,30 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
             },
             inherited: false,
           },
-        };
+        }
       }
-    });
+    })
 
     const payload = {
       hotelRatePolicyAlphaId: hotel.hook.data.alphaId,
       ratePolicyEntityAlphaId: policy.alphaId,
       rules,
-    };
+    }
     if (payload.rules.paymentMethod.data.length === 0) {
-      return;
+      return
     }
     await hotelChain.putHttp(
       'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
-      payload
-    );
+      payload,
+    )
 
     const mergedData = {
       ...hotelChain.hook.data,
-    };
+    }
 
-    hotelChain.hook.setData(mergedData);
-    set(hotelChain.cachePath, mergedData);
-  };
+    hotelChain.hook.setData(mergedData)
+    setCache(hotelChain.cachePath, mergedData)
+  }
 
   return {
     edit,
@@ -181,5 +182,5 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
     findPaymentMethods,
     handleSubmit,
     paymentMethodsDefault,
-  };
+  }
 }

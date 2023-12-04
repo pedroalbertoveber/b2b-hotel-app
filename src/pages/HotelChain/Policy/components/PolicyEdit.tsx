@@ -1,6 +1,6 @@
 import { CACHE_PATH } from '@/config/cache'
 import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
-import { set } from '@/services/cache'
+import { set, setCache } from '@/services/cache'
 import { FaCopy, FaPencil } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ export default function PolicyEdit({ policy }: { policy: any }) {
     },
   } = useHotelChainEntityContext()
   const handleCachePolicy = () => {
-    set(CACHE_PATH.HOTELS_CHAIN.CURRENT_POLICY, policy)
+    setCache(CACHE_PATH.HOTELS_CHAIN.CURRENT_POLICY, policy)
     setCurrentPolicy(policy)
   }
   return (

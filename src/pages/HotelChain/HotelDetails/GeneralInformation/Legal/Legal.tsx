@@ -10,8 +10,16 @@ import { FormComponents } from '@/components/FormComponents'
 
 // Icons
 import { Attachment, Pencil } from '@/common/icons'
+import { useUsersHomeEntityContext } from '@/context/UsersHomeEntityContext'
 
-export default function Legal({ data }) {
+export default function Legal() {
+  const {
+    UsersHome: {
+      hook: {
+        hotelsChain: { responsible },
+      },
+    },
+  } = useUsersHomeEntityContext()
   const [open, setOpen] = useState(false)
 
   function handleOpenModal() {
@@ -41,34 +49,47 @@ export default function Legal({ data }) {
         <div className="mt-6 flex flex-col gap-4">
           <BasicInfo
             info="Responsável"
-            value={data ? data.corporateName : 'Bruce Wayne'}
+            value={responsible ? responsible.fullName : 'Bruce Wayne'}
           />
 
           <BasicInfo
             info="Cargo"
-            value={data ? data.taxpayerId : 'Filantrópo'}
+            value={responsible ? responsible.role : 'Filantrópo'}
           />
 
           <BasicInfo
             info="CPF"
-            value={data ? data.exemptedStateCompanyRegNumber : '034.239.810-59'}
+            value={responsible ? responsible.taxPayerCode : '034.239.810-59'}
           />
 
-          <div className="flex flex-col items-start justify-start gap-2">
-            <div className="flex w-auto items-center gap-2 rounded-full border-2 border-divider/20 px-4 py-2">
-              <Attachment />
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex flex-col items-start justify-start gap-2">
+              <div className="flex w-auto items-center gap-2 rounded-full border-2 border-divider/20 px-4 py-2">
+                <Attachment />
 
-              <span>Contrato Social</span>
+                <span className="text-small">Anexar contrato B2B</span>
+              </div>
+
+              <small className="text-xs text-gray-300">
+                O contrato com a B2B é regido pela rede hoteleira.
+              </small>
             </div>
+            <div className="flex flex-col items-start justify-start gap-2">
+              <div className="flex w-auto items-center gap-2 rounded-full border-2 border-divider/20 px-4 py-2">
+                <Attachment />
 
-            <small className="text-xs text-gray-300">
-              O contrato com a B2B é regido pela rede hoteleira.
-            </small>
+                <span className="text-small">Anexar contrato social</span>
+              </div>
+
+              <small className="text-xs text-gray-300">
+                O contrato com a B2B é regido pela rede hoteleira.
+              </small>
+            </div>
           </div>
         </div>
       </B2BPattern.Containers.Whitebox>
 
-      <SectionModal open={open} setOpen={setOpen} data={data || []} />
+      <SectionModal open={open} setOpen={setOpen} />
     </>
   )
 }

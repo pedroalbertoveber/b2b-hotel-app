@@ -1,5 +1,5 @@
 import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
-import { set } from '@/services/cache'
+import { set, setCache } from '@/services/cache'
 import { useState } from 'react'
 
 export default function UseComissionHook({ policy }: { policy: any }) {
@@ -112,7 +112,7 @@ export default function UseComissionHook({ policy }: { policy: any }) {
       })
 
       HotelChain.hook.setPolicy(mergedData)
-      set(HotelChain.cachePathPolicies, mergedData)
+      setCache(HotelChain.cachePathPolicies, mergedData)
     }
   }
 

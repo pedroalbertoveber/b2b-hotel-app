@@ -3,8 +3,14 @@ import { useState } from 'react'
 import { FaPencil } from 'react-icons/fa6'
 import SectionModal from './Modal/SectionModal'
 import BasicInfo from '../../Components/BasicInfo'
+import { useUsersHomeEntityContext } from '@/context/UsersHomeEntityContext'
 
-export default function MainContact({ data }) {
+export default function MainContact() {
+  const {
+    UsersHome: {
+      hook: { hotelsChain },
+    },
+  } = useUsersHomeEntityContext()
   const [open, setOpen] = useState(false)
   return (
     <>
@@ -25,24 +31,35 @@ export default function MainContact({ data }) {
         </div>
         <div className="mt-6 flex flex-col gap-4">
           <BasicInfo
-            info="Razão Social"
-            value={data ? data.corporateName : ''}
+            info="Telefone"
+            value={hotelsChain ? hotelsChain.phone : ''}
           />
-          <BasicInfo info="CNPJ" value={data ? data.taxpayerId : ''} />
           <BasicInfo
-            info="Inscrição Estadual"
+            info="E-mail"
+            value={hotelsChain ? hotelsChain.mail : ''}
+          />
+          <BasicInfo
+            info="Endereço"
             value={
-              data
-                ? data.exemptedStateCompanyRegNumber
-                  ? 'Isento'
-                  : data.stateCompanyRegNumber
+              hotelsChain
+                ? hotelsChain.address.addressLine.toLowerCase() +
+                  ', ' +
+                  hotelsChain.address.district.toLowerCase() +
+                  ' - ' +
+                  hotelsChain.address.zipCode +
+                  ' ' +
+                  hotelsChain.address.location.cityName.toLowerCase() +
+                  '/' +
+                  hotelsChain.address.location.stateSymbol.toLowerCase() +
+                  ' - ' +
+                  hotelsChain.address.location.countryName.toLowerCase()
                 : ''
             }
           />
         </div>
       </B2BPattern.Containers.Whitebox>
 
-      <SectionModal open={open} setOpen={setOpen} data={data || []} />
+      <SectionModal open={open} setOpen={setOpen} />
     </>
   )
 }

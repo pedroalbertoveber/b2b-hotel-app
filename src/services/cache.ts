@@ -1,6 +1,6 @@
 import localforage from 'localforage'
 
-export function set(key: string, value?: any): void {
+export function setCache(key: string, value?: any): void {
   if (typeof window !== 'undefined') {
     if (value) {
       const limit = 20000
@@ -13,7 +13,7 @@ export function set(key: string, value?: any): void {
   }
 }
 
-export function get(key: string) {
+export function getCache(key: string) {
   if (typeof window !== 'undefined') {
     const cached = JSON.parse(localStorage.getItem(key) || '{}')
     return cached

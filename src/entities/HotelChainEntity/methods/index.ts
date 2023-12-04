@@ -3,6 +3,11 @@ export const HttpMethods = {
   GET: {
     ratePolicies: 'rate-policies',
   },
-  PUT: null,
+  PUT: {
+    legalInfo: 'legal-info',
+    responsibleInfo: 'responsible-info',
+    contacts: 'contacts',
+    rules: 'rules',
+  },
   DELETE: null,
 } as const

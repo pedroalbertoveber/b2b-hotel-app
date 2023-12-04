@@ -1,99 +1,59 @@
-// Core
-import { useState } from 'react'
-
 // Components
 import { B2BPattern } from '@/components'
 import { FormComponents } from '@/components/FormComponents'
 
-// Icons
-import { LuCheck } from 'react-icons/lu'
-
-// Form
-import {
-  useGeneralInfoForm,
-  type UseGeneralInfoFormType,
-} from '../hooks/useGeneralInfoForm'
-
-import type { GeranalInfoFormType } from '../Schema/schema'
-
-// Utils
-import { createCnpjMask } from '@/utils/inputMasks'
-
 // Mock
 import { HOTEL_TYPES } from '@/common/mocks/hotel-types'
+import { useUsersHomeEntityContext } from '@/context/UsersHomeEntityContext'
+import SuccessFeedBack from '@/components/Popups/Modal/SuccessFeedBack'
+import SectionForm from '../Form/form'
+import useGeneralHook from '../Hooks/useGeneralHook'
 
 type SectionModalProps = {
   open: boolean
-  data: UseGeneralInfoFormType
   setOpen: (open: boolean) => void
 }
 
-export default function SectionModal({
-  open,
-  setOpen,
-  data,
-}: SectionModalProps) {
-  const [shouldDisplayConfirmationAlert, setShouldDisplayConfirmationAlert] =
-    useState(false)
+export default function SectionModal({ open, setOpen }: SectionModalProps) {
+  const {
+    UsersHome: {
+      hook: { hotelsChain },
+    },
+  } = useUsersHomeEntityContext()
 
-  const [shouldDisplaySuccessFeedback, setShouldDisplaySuccessFeedback] =
-    useState(false)
+  const {
+    watch,
+    trigger,
+    register,
+    setValue,
+    isSubmitting,
+    errors,
+    handleSubmit,
+  } = SectionForm(hotelsChain)
 
-  const { watch, trigger, register, setValue, formState, handleSubmit } =
-    useGeneralInfoForm(data)
-
-  const { isSubmitting, errors } = formState
-
-  function handleChangeHotelExempted(value: boolean) {
-    if (value) {
-      setValue('exemptedStateCompanyRegNumber', true)
-      setValue('stateCompanyRegNumber', '')
-    } else {
-      setValue('exemptedStateCompanyRegNumber', false)
-    }
-  }
-
-  function handleChangeTaxPayerRegistryCode(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) {
-    const formattedValue = createCnpjMask(event.target.value)
-    setValue('taxPayerRegistryCode', formattedValue)
-  }
-
-  async function handleDisplayConfirmationAlert() {
-    const result = await trigger()
-
-    if (result) {
-      setShouldDisplayConfirmationAlert(true)
-    }
-  }
-
-  function handleDisplaySuccessFeedback() {
-    setShouldDisplaySuccessFeedback(true)
-  }
-
-  function handleGoBackToForm() {
-    setShouldDisplayConfirmationAlert(false)
-  }
-
-  function handleCloseDialog() {
-    setShouldDisplayConfirmationAlert(false)
-    setShouldDisplaySuccessFeedback(false)
-    setOpen(false)
-  }
-
-  async function handleUpdateGeneralInfo(data: GeranalInfoFormType) {
-    try {
-      console.log(data)
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      handleDisplaySuccessFeedback()
-    } catch (error: any) {
-      console.log(error)
-    }
-  }
+  const {
+    handleChangeHotelExempted,
+    handleChangeTaxPayerRegistryCode,
+    handleDisplayConfirmationAlert,
+    handleGoBackToForm,
+    handleCloseDialog,
+    handleUpdateGeneralInfo,
+    shouldDisplayConfirmationAlert,
+    shouldDisplaySuccessFeedback,
+  } = useGeneralHook({
+    setOpen,
+    trigger,
+    setValue,
+  })
 
   return (
-    <B2BPattern.Popups.Modal.Root open={open} onOpenChange={setOpen}>
+    <B2BPattern.Popups.Modal.Root
+      open={open}
+      onOpenChange={(res) => {
+        setOpen(res)
+        handleCloseDialog()
+      }}
+    >
       {shouldDisplaySuccessFeedback ? (
         <SuccessFeedBack handleCloseDialog={handleCloseDialog} />
       ) : (
@@ -130,15 +90,18 @@ export default function SectionModal({
                       errorMessage={errors.taxPayerRegistryCode?.message}
                       onChange={handleChangeTaxPayerRegistryCode}
                     />
-
                     <FormComponents.Input
                       type="text"
                       label="Inscrição Estadual"
                       disabled={watch('exemptedStateCompanyRegNumber')}
+                      value={
+                        watch('exemptedStateCompanyRegNumber')
+                          ? 'Isento'
+                          : watch('stateCompanyRegNumber')
+                      }
                       {...register('stateCompanyRegNumber')}
                       errorMessage={errors.stateCompanyRegNumber?.message}
                     />
-
                     <FormComponents.Select.Root
                       label="Tipo"
                       value={watch('type')}
@@ -158,7 +121,7 @@ export default function SectionModal({
                   <FormComponents.Checkbox.Root>
                     <FormComponents.Checkbox.Trigger
                       className="h-6 w-6"
-                      defaultChecked={data.exemptedStateCompanyRegNumber}
+                      defaultChecked={hotelsChain.exemptedStateCompanyRegNumber}
                       onCheckedChange={handleChangeHotelExempted}
                     />
 
@@ -172,7 +135,7 @@ export default function SectionModal({
           </form>
 
           <footer className="flex w-full justify-end gap-6 rounded-b-md bg-background px-6 py-4">
-            {shouldDisplayConfirmationAlert ? (
+            {shouldDisplayConfirmationAlert && (
               <>
                 <FormComponents.Button
                   variant="ghost-primary"
@@ -193,7 +156,9 @@ export default function SectionModal({
                   {isSubmitting ? 'Salvando...' : 'Salvar'}
                 </FormComponents.Button>
               </>
-            ) : (
+            )}
+
+            {!shouldDisplayConfirmationAlert && (
               <>
                 <FormComponents.Button
                   variant="ghost-primary"
@@ -217,31 +182,5 @@ export default function SectionModal({
         </B2BPattern.Popups.Modal.Content>
       )}
     </B2BPattern.Popups.Modal.Root>
-  )
-}
-
-type SuccessFeedBackProps = {
-  handleCloseDialog: () => void
-}
-
-function SuccessFeedBack({ handleCloseDialog }: SuccessFeedBackProps) {
-  return (
-    <B2BPattern.Popups.Modal.Content className="p-0">
-      <div className="flex items-center gap-4 p-6">
-        <LuCheck className="text-success" size={24} />
-        <span className="text-title-sm font-semibold text-primary">
-          Alterações salvas com sucesso!
-        </span>
-      </div>
-      <footer className="flex w-full justify-end gap-6 rounded-b-md bg-background px-6 py-4">
-        <FormComponents.Button
-          type="button"
-          className="px-6"
-          onClick={handleCloseDialog}
-        >
-          Fechar
-        </FormComponents.Button>
-      </footer>
-    </B2BPattern.Popups.Modal.Content>
   )
 }

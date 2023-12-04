@@ -75,7 +75,7 @@ export abstract class CoreEntity {
 
   async postHttp({
     method,
-    config,
+    config = {},
     body = {},
     forceUpdate = true,
     setCache = true,
@@ -83,7 +83,7 @@ export abstract class CoreEntity {
     cachePath = this.cachePath,
   }: {
     method?: string
-    config: AxiosRequestConfig
+    config?: AxiosRequestConfig
     body?: { [key: string]: any }
     forceUpdate?: boolean
     setCache?: boolean
@@ -94,10 +94,7 @@ export abstract class CoreEntity {
     if (cachedData && !forceUpdate) return cachedData
 
     const url = `${this.baseUrl}/${method}`
-    const data = await B2BApi.post(url, {
-      body,
-      ...config,
-    })
+    const data = await B2BApi.post(url, body, config)
 
     if (setCache) {
       this.setLocalStorage({
@@ -112,7 +109,7 @@ export abstract class CoreEntity {
 
   async putHttp({
     method,
-    config,
+    config = {},
     body = {},
     forceUpdate = true,
     setCache = true,
@@ -120,7 +117,7 @@ export abstract class CoreEntity {
     cachePath = this.cachePath,
   }: {
     method?: string
-    config: AxiosRequestConfig
+    config?: AxiosRequestConfig
     body?: { [key: string]: any }
     forceUpdate?: boolean
     setCache?: boolean
@@ -131,10 +128,7 @@ export abstract class CoreEntity {
     if (cachedData && !forceUpdate) return cachedData
 
     const url = `${this.baseUrl}/${method}`
-    const data = await B2BApi.put(url, {
-      body,
-      ...config,
-    })
+    const data = await B2BApi.put(url, body, config)
 
     if (setCache) {
       this.setLocalStorage({

@@ -1,29 +1,30 @@
-'use client';
+'use client'
 
-import { DashContext } from '@/app/(dashboard)/(context)/DashContext';
-import HotelClass from '@/classes/Hotel/HotelClass';
-import HotelChainClass from '@/classes/HotelChain/HotelChainClass';
-import { pensionOptions } from '@/globalData/pensionType';
-import { set } from '@/services/cache/cache';
-import { useContext, useState } from 'react';
+import { DashContext } from '@/app/(dashboard)/(context)/DashContext'
+import HotelClass from '@/classes/Hotel/HotelClass'
+import HotelChainClass from '@/classes/HotelChain/HotelChainClass'
+import { pensionOptions } from '@/globalData/pensionType'
+import { setCache } from '@/services/cache'
+import { set } from '@/services/cache/cache'
+import { useContext, useState } from 'react'
 
 export default function UsePensionHook({ policy }: { policy: any }) {
   const findPensionByValue = () => {
     const result = pensionOptions.find((e) => {
-      return e.value === policy?.mealPlan?.data;
-    });
-    return result;
-  };
+      return e.value === policy?.mealPlan?.data
+    })
+    return result
+  }
 
   const {
     hotelChain,
     hotel,
   }: {
-    hotelChain: HotelChainClass;
-    hotel: HotelClass;
-  } = useContext(DashContext);
-  const [pension, setPension] = useState<any>(findPensionByValue() || '');
-  const [edit, setEdit] = useState(false);
+    hotelChain: HotelChainClass
+    hotel: HotelClass
+  } = useContext(DashContext)
+  const [pension, setPension] = useState<any>(findPensionByValue() || '')
+  const [edit, setEdit] = useState(false)
 
   const submit = async () => {
     const rules = {
@@ -31,17 +32,17 @@ export default function UsePensionHook({ policy }: { policy: any }) {
         data: pension.value,
         inherited: false,
       },
-    };
+    }
     const payload = {
       hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
       ratePolicyEntityAlphaId: policy.alphaId,
       rules,
-    };
+    }
 
     await hotelChain.putHttp(
       'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
-      payload
-    );
+      payload,
+    )
 
     const mergedData = hotelChain.hook.policy.map((e: any) => {
       if (e.alphaId === policy.alphaId) {
@@ -51,14 +52,14 @@ export default function UsePensionHook({ policy }: { policy: any }) {
             ...e.rules,
             mealPlan: payload.rules.mealPlan,
           },
-        };
+        }
       }
-      return e;
-    });
+      return e
+    })
 
-    hotelChain.hook.setPolicy(mergedData);
-    set(hotelChain.cachePathPolicies, mergedData);
-  };
+    hotelChain.hook.setPolicy(mergedData)
+    setCache(hotelChain.cachePathPolicies, mergedData)
+  }
 
   return {
     pension,
@@ -66,5 +67,5 @@ export default function UsePensionHook({ policy }: { policy: any }) {
     edit,
     setEdit,
     submit,
-  };
+  }
 }

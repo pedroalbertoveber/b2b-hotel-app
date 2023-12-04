@@ -3,15 +3,24 @@ import React, { useState } from 'react'
 import { Form } from '../Schema/schema'
 import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
 import { useUsersHomeEntityContext } from '@/context/UsersHomeEntityContext'
+import { HotelChain } from '@/entities/HotelChainEntity/@types/HotelChainEntityTypes'
 import { CACHE_PATH } from '@/config/cache'
 
-export default function useLegalInfoHook({ setValue, trigger, setOpen }) {
+export default function useGeneralHook({ setValue, trigger, setOpen }) {
   const { UsersHome } = useUsersHomeEntityContext()
   const {
     hook: { hotelsChain, setHotelsChain },
   } = UsersHome
 
   const { HotelChain } = useHotelChainEntityContext()
+  function handleChangeHotelExempted(value: boolean) {
+    if (value) {
+      setValue('exemptedStateCompanyRegNumber', true)
+      setValue('stateCompanyRegNumber', '')
+    } else {
+      setValue('exemptedStateCompanyRegNumber', false)
+    }
+  }
 
   const [shouldDisplayConfirmationAlert, setShouldDisplayConfirmationAlert] =
     useState(false)
@@ -50,26 +59,24 @@ export default function useLegalInfoHook({ setValue, trigger, setOpen }) {
     }, 100)
   }
 
-  async function handleUpdateLegalInfo(formData: Form) {
+  async function handleUpdateGeneralInfo(formData: Form) {
     try {
-      const payload = {
+      const body = {
         alphaId: hotelsChain.alphaId,
-        responsible: { ...formData },
+        ...formData,
       }
       setOpen(false)
       await HotelChain.putHttp({
-        method:
-          hotelsChain.alphaId + '/' + HotelChain.putMethods.responsibleInfo,
-        body: payload,
+        method: hotelsChain.alphaId + '/' + HotelChain.putMethods.legalInfo,
+        body,
       })
 
-      const mergedData = {
+      const mergedData: HotelChain = {
         ...hotelsChain,
-        responsible: {
-          fullName: payload.responsible.fullName,
-          role: payload.responsible.role,
-          taxPayerCode: payload.responsible.taxPayerCode,
-        },
+        corporateName: body.corporateName,
+        taxpayerId: body.taxPayerRegistryCode,
+        stateCompanyRegNumber: body.stateCompanyRegNumber || '',
+        exemptedStateCompanyRegNumber: body.exemptedStateCompanyRegNumber,
       }
 
       setHotelsChain(mergedData)
@@ -84,11 +91,13 @@ export default function useLegalInfoHook({ setValue, trigger, setOpen }) {
   }
 
   return {
+    handleChangeHotelExempted,
     handleChangeTaxPayerRegistryCode,
     handleDisplayConfirmationAlert,
+    handleDisplaySuccessFeedback,
     handleGoBackToForm,
     handleCloseDialog,
-    handleUpdateLegalInfo,
+    handleUpdateGeneralInfo,
     shouldDisplayConfirmationAlert,
     shouldDisplaySuccessFeedback,
   }

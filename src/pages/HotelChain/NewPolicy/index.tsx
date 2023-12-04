@@ -12,7 +12,6 @@ export function HotelChainNewPolicy() {
     },
   } = useHotelChainEntityContext()
 
-  console.log('current policy - ', currentPolicy)
   return (
     <>
       {/* Page header */}

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const editGeneralInfoFormSchema = z
+export const Schema = z
   .object({
     corporateName: z
       .string({
@@ -27,4 +27,4 @@ export const editGeneralInfoFormSchema = z
     }
   })
 
-export type GeranalInfoFormType = z.infer<typeof editGeneralInfoFormSchema>
+export type Form = z.infer<typeof Schema>

@@ -1,8 +1,9 @@
-import { DashContext } from '@/app/(dashboard)/(context)/DashContext';
-import HotelClass from '@/classes/Hotel/HotelClass';
-import HotelChainClass from '@/classes/HotelChain/HotelChainClass';
-import { set } from '@/services/cache/cache';
-import { useContext, useState } from 'react';
+import { DashContext } from '@/app/(dashboard)/(context)/DashContext'
+import HotelClass from '@/classes/Hotel/HotelClass'
+import HotelChainClass from '@/classes/HotelChain/HotelChainClass'
+import { setCache } from '@/services/cache'
+import { set } from '@/services/cache/cache'
+import { useContext, useState } from 'react'
 
 export default function UseCancellationHook({ policy }: { policy: any }) {
   const penaltys = [
@@ -21,53 +22,53 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
       checked: false,
       hasInput: true,
     },
-  ];
+  ]
 
   const {
     hotelChain,
     hotel,
   }: {
-    hotelChain: HotelChainClass;
-    hotel: HotelClass;
-  } = useContext(DashContext);
+    hotelChain: HotelChainClass
+    hotel: HotelClass
+  } = useContext(DashContext)
 
   const getLanguageRules = (key: 'PT_BR' | 'EN_US' | 'ES_ES') => {
     return policy?.modifCancellation?.data?.description
       ? policy?.modifCancellation?.data?.description[key]
-      : '';
-  };
+      : ''
+  }
 
   const [allowCancellationWithoutPenalty, setAllowCancellationWithoutPenalty] =
     useState(
-      policy?.modifCancellation?.data?.allowedModifHoursBeforeCheckin > 0
-    );
+      policy?.modifCancellation?.data?.allowedModifHoursBeforeCheckin > 0,
+    )
   const [howManyHoursBeforePenalty, setHowManyHoursBeforePenalty] = useState(
-    policy?.modifCancellation?.data?.allowedModifHoursBeforeCheckin || 0
-  );
+    policy?.modifCancellation?.data?.allowedModifHoursBeforeCheckin || 0,
+  )
 
-  const [cancellationPenalty, setCancellationPenalty] = useState(false);
+  const [cancellationPenalty, setCancellationPenalty] = useState(false)
   const [cancellationPenaltyOptions, setCancellationPenaltyOptions] =
-    useState<any>(penaltys.map((e) => e.checked));
+    useState<any>(penaltys.map((e) => e.checked))
   const [cancellationPenaltyValue, setCancellationPenaltyValue] = useState(
     penaltys.map(() => {
-      return 0;
-    })
-  );
+      return 0
+    }),
+  )
   const [languageRules, setLanguageRules] = useState<string[]>([
     getLanguageRules('PT_BR'),
     getLanguageRules('EN_US'),
     getLanguageRules('ES_ES'),
-  ]);
-  const [edit, setEdit] = useState(false);
+  ])
+  const [edit, setEdit] = useState(false)
 
   const handleCheckPenalty = (index?: any) => {
     const newPenalty = cancellationPenaltyOptions.map(() => {
-      return false;
-    });
+      return false
+    })
 
-    newPenalty[index] = !newPenalty[index];
-    setCancellationPenaltyOptions(newPenalty);
-  };
+    newPenalty[index] = !newPenalty[index]
+    setCancellationPenaltyOptions(newPenalty)
+  }
 
   const submit = async () => {
     let rules: any = {
@@ -84,7 +85,7 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
         },
         inherited: false,
       },
-    };
+    }
 
     if (cancellationPenalty) {
       switch (cancellationPenaltyOptions.findIndex((e: any) => e)) {
@@ -94,24 +95,24 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
             cancelPenalty: {
               byType: 'FIRST_ROOM_NIGHT_AMOUNT',
             },
-          };
-          break;
+          }
+          break
         case 1:
           rules = {
             ...rules,
             cancelPenalty: {
               byRoomNightPercent: cancellationPenaltyValue[1],
             },
-          };
-          break;
+          }
+          break
         case 2:
           rules = {
             ...rules,
             cancelPenalty: {
               byAmount: cancellationPenaltyValue[2],
             },
-          };
-          break;
+          }
+          break
       }
     }
 
@@ -119,12 +120,12 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
       hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
       ratePolicyEntityAlphaId: policy.alphaId,
       rules,
-    };
+    }
 
     await hotelChain.putHttp(
       'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
-      payload
-    );
+      payload,
+    )
 
     const mergedData = hotelChain.hook.policy.map((e: any) => {
       if (e.alphaId === policy.alphaId) {
@@ -134,14 +135,14 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
             ...e.rules,
             pet: payload.rules.modifCancellation,
           },
-        };
+        }
       }
-      return e;
-    });
+      return e
+    })
 
-    hotelChain.hook.setPolicy(mergedData);
-    set(hotelChain.cachePathPolicies, mergedData);
-  };
+    hotelChain.hook.setPolicy(mergedData)
+    setCache(hotelChain.cachePathPolicies, mergedData)
+  }
 
   return {
     allowCancellationWithoutPenalty,
@@ -161,5 +162,5 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
     setEdit,
     submit,
     penaltys,
-  };
+  }
 }

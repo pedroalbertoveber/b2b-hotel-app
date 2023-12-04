@@ -6,10 +6,10 @@ export default function Contact() {
   return (
     <Tabs.Content
       value="contact"
-      className="mt-6 grid w-full grid-cols-1 gap-2 duration-150 peer-hover:mt-8"
+      className="mt-6 grid w-full grid-cols-1 gap-2 lg:grid-cols-2"
     >
-      <MainContact data={[]} />
-      <AditionalContact data={[]} />
+      <MainContact />
+      <AditionalContact />
     </Tabs.Content>
   )
 }

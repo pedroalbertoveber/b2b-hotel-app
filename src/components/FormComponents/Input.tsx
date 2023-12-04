@@ -11,7 +11,7 @@ const inputVariants = tv({
     variant: {
       form: 'group-data-[active=true]:mb-[4.875rem] group-data-[active=true]:ml-[-0.75rem] group-data-[active=true]:text-sm',
       filter:
-        'block bg-white duration-300 group-data-[active=true]:mb-[3rem] group-data-[active=true]:px-1 group-data-[active=true]:ml-[-4px] group-data-[active=true]:text-xs',
+        'block bg-white duration-300 group-data-[active=true]:mb-[3rem] group-data-[active=true]:px-1 group-data-[active=true]:ml-[-4px] group-data-[active=true]:text-xs text-[0.75rem]',
     },
   },
   defaultVariants: {
@@ -67,8 +67,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         <input
           ref={ref}
           className="
-          text-text-primary z-10 w-full border-none bg-transparent leading-none 
-          focus:outline-none group-data-[disabled=true]:text-divider/30"
+          text-text-primary z-10 w-full border-none bg-transparent text-small capitalize 
+          leading-none placeholder:text-small focus:outline-none group-data-[disabled=true]:text-divider/30"
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           placeholder={placeholder}
