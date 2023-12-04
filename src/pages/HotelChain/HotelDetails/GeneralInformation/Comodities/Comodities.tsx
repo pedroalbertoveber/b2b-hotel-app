@@ -1,44 +1,54 @@
-import { B2BPattern } from '@/components'
-import BasicInfo from '../../Components/BasicInfo'
+// Core
 import { useState } from 'react'
-import { FaPencil } from 'react-icons/fa6'
-import SectionModal from './Modal/SectionModal'
+
+// Components
+import { B2BPattern } from '@/components'
+import { Tooltip } from '@/components/Utils/Tooltip'
+import { FormComponents } from '@/components/FormComponents'
+
+import { SectionModal } from './Modal/SectionModal'
+
+// // Icons
+import { Pencil } from '@/common/icons'
+
+// Mocks
+import { AMENTITIES } from '@/common/mocks/amentities'
 
 export default function Comodities({ data }) {
   const [open, setOpen] = useState(false)
+
+  function handleOpenModal() {
+    setOpen(true)
+  }
+
   return (
     <>
       <B2BPattern.Containers.Whitebox className="gap-2 lg:gap-4">
         <div className="mb-2 flex w-full justify-between">
           <B2BPattern.Texts.Subtitle
             title="Comodidades"
-            classes="text-[1rem] uppercase font-[600]"
+            classes="text-base uppercase font-semibold"
           />
-          <button
-            onClick={() => {
-              setOpen(true)
-            }}
-            type="button"
-          >
-            <FaPencil />
-          </button>
+
+          <Tooltip description="Editar">
+            <FormComponents.Button
+              variant="ghost-primary"
+              onClick={handleOpenModal}
+              type="button"
+            >
+              <Pencil />
+            </FormComponents.Button>
+          </Tooltip>
         </div>
-        <div className="mt-6 flex flex-col gap-4">
-          <BasicInfo
-            info="Razão Social"
-            value={data ? data.corporateName : ''}
-          />
-          <BasicInfo info="CNPJ" value={data ? data.taxpayerId : ''} />
-          <BasicInfo
-            info="Inscrição Estadual"
-            value={
-              data
-                ? data.exemptedStateCompanyRegNumber
-                  ? 'Isento'
-                  : data.stateCompanyRegNumber
-                : ''
-            }
-          />
+
+        <div className="grid w-full grid-cols-8 gap-6 pr-20">
+          {AMENTITIES.slice(0, 16).map(({ name, icon: Icon }) => {
+            return (
+              <Tooltip key={name} description={name}>
+                <Icon />
+              </Tooltip>
+            )
+          })}
         </div>
       </B2BPattern.Containers.Whitebox>
 

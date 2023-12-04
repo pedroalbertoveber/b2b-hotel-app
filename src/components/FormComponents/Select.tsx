@@ -20,7 +20,7 @@ const selectVariants = tv({
     },
   },
   defaultVariants: {
-    variant: 'form',
+    variant: 'filter',
   },
 })
 
@@ -95,7 +95,7 @@ export function Root({
               side="bottom"
               position="popper"
               className="
-                border-text-primary scrollbar-thin scrollbar-thumb-primary z-20 max-h-[10rem] w-[--radix-select-trigger-width] overflow-auto rounded-[0.375rem] border 
+                border-text-primary scrollbar-thin scrollbar-thumb-primary z-[99] max-h-[10rem] w-[--radix-select-trigger-width] overflow-auto rounded-[0.375rem] border 
                 bg-white p-2"
               sideOffset={8}
             >
