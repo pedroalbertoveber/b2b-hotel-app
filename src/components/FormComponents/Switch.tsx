@@ -41,10 +41,10 @@ export function Thumb({
     <Switch.Root
       disabled={disabled}
       id={customId}
-      className="data-[state=unchecked]:bg-text-disabled relative flex h-6 w-[44px] cursor-default items-center rounded-full enabled:cursor-pointer data-[state=checked]:bg-[#D5E3FF]"
+      className="relative flex h-6 w-[44px] cursor-default items-center rounded-full enabled:cursor-pointer data-[state=checked]:bg-[#D5E3FF] data-[state=unchecked]:bg-gray-300"
       {...props}
     >
-      <Switch.Thumb className="data-[state=unchecked]:bg-text-secondary block h-[20px] w-[20px] cursor-pointer rounded-full transition-transform duration-100 data-[state=checked]:translate-x-[22px] data-[state=unchecked]:translate-x-[2px] data-[state=checked]:bg-primary" />
+      <Switch.Thumb className="block h-[20px] w-[20px] cursor-pointer rounded-full transition-transform duration-100 data-[state=checked]:translate-x-[22px] data-[state=unchecked]:translate-x-[2px] data-[state=checked]:bg-primary data-[state=unchecked]:bg-gray-600" />
     </Switch.Root>
   )
 }

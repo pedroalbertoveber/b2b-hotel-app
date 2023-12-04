@@ -1,14 +1,17 @@
 import { z } from 'zod'
 
-export const Schema = z.object({
-  corporateName: z
+export const editLegalInfoFormSchema = z.object({
+  fullName: z
+    .string({ required_error: 'O nome completo é obrigatório' })
+    .min(2, 'O nome completo deve ter no mínimo 2 caracteres'),
+  role: z
+    .string({ required_error: 'O cargo é obrigatório' })
+    .min(2, 'O cargo deve ter no mínimo 2 caracteres'),
+  taxPayerCode: z
     .string({
-      required_error: 'Razão social é obrigatória',
+      required_error: 'O CPF do responsável é obrigatório',
     })
-    .min(2),
-  taxPayerRegistryCode: z.string(),
-  stateCompanyRegNumber: z.string(),
-  exemptedStateCompanyRegNumber: z.boolean(),
+    .min(11, 'O CPF do responsável deve ter no mínimo 11 caracteres'),
 })
 
-export type Form = z.infer<typeof Schema>
+export type LegalInfoFormType = z.infer<typeof editLegalInfoFormSchema>

@@ -1,0 +1,17 @@
+export const HOTEL_TYPES = [
+  { value: 'AMERICAN_MOTEL', label: 'American Motel' },
+  { value: 'BED_AND_COFFE', label: 'Cama e café' },
+  { value: 'CAPSULE_HOTEL', label: 'Capsule Hotel' },
+  { value: 'FLAT_APART', label: 'Flat/Apart' },
+  { value: 'HOME_HOSTING', label: 'Hospedagem domiciliar' },
+  { value: 'HOSTEL', label: 'Hostel' },
+  { value: 'HOTEL', label: 'Hotel' },
+  { value: 'FARM_HOTEL', label: 'Hotel Fazenda' },
+  { value: 'HISTORIC_HOTEL', label: 'Hotel histórico' },
+  { value: 'MOTEL', label: 'Motel' },
+  { value: 'LODGE', label: 'Pousada' },
+  { value: 'RESIDENTIAL', label: 'Residencial' },
+  { value: 'RESORT', label: 'Resort' },
+  { value: 'RIAD', label: 'Riad' },
+  { value: 'JAPANESE_RYOKAN', label: 'Ryokan Japonês' },
+]

@@ -10,7 +10,8 @@ import { FormComponents } from '@/components/FormComponents'
 import SectionModal from './Modal/SectionModal'
 
 // Icons
-import { FaPencil } from 'react-icons/fa6'
+import { Pencil } from '@/common/icons'
+import { Tooltip } from '@/components/Utils/Tooltip'
 
 export default function General({ data }) {
   const [open, setOpen] = useState(false)
@@ -27,13 +28,15 @@ export default function General({ data }) {
             title="Informações Gerais"
             classes="text-[1rem] uppercase font-[600]"
           />
-          <FormComponents.Button
-            onClick={handleOpenModal}
-            type="button"
-            variant="ghost-primary"
-          >
-            <FaPencil />
-          </FormComponents.Button>
+          <Tooltip description="Editar">
+            <FormComponents.Button
+              onClick={handleOpenModal}
+              type="button"
+              variant="ghost-primary"
+            >
+              <Pencil />
+            </FormComponents.Button>
+          </Tooltip>
         </div>
         <div className="mt-6 flex flex-col gap-4">
           <BasicInfo
