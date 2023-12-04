@@ -140,6 +140,7 @@ module.exports = {
           300: '#D4D4D4',
           600: '#727578',
         },
+        textDisabled: '#BDBDBD',
       },
       borderRadius: {
         b2bSmall: '0.375rem',

@@ -21,6 +21,21 @@ export function List({ className, ...props }: TabsPrimitive.TabsListProps) {
   )
 }
 
+export function TriggerGhost({
+  className,
+  ...props
+}: TabsPrimitive.TabsTriggerProps) {
+  return (
+    <TabsTrigger
+      {...props}
+      className={twMerge(
+        'text-textDisabled h-full w-full bg-transparent p-0 font-semibold uppercase duration-150 data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:shadow-none',
+        className,
+      )}
+    />
+  )
+}
+
 export function Trigger({
   className,
   ...props
@@ -29,7 +44,7 @@ export function Trigger({
     <TabsTrigger
       {...props}
       className={twMerge(
-        'h-full w-full rounded-[10px] bg-transparent text-xs font-semibold uppercase text-primary duration-150 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:hover:bg-zinc-100',
+        'h-full w-full rounded-[10px] bg-transparent text-[0.75rem] font-semibold uppercase text-primary duration-150 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=inactive]:hover:bg-zinc-100',
         className,
       )}
     />

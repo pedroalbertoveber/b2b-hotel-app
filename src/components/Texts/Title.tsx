@@ -2,14 +2,18 @@ import { twMerge } from 'tailwind-merge'
 
 export default function Title({
   title,
-  classes,
+  className,
 }: {
   title: string
-  classes?: string
+  className?: string
 }) {
   const defaultClasses = 'text-large text-primary font-[600] mb-12 uppercase'
   return (
-    <p className={classes ? twMerge(defaultClasses, classes) : defaultClasses}>
+    <p
+      className={
+        className ? twMerge(defaultClasses, className) : defaultClasses
+      }
+    >
       {title}
     </p>
   )

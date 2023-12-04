@@ -1,17 +1,22 @@
+import { CACHE_PATH } from '@/config/cache'
+import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
 import { set } from '@/services/cache'
 import { FaCopy, FaPencil } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
 export default function PolicyEdit({ policy }: { policy: any }) {
+  const {
+    HotelChain: {
+      hook: { setCurrentPolicy },
+    },
+  } = useHotelChainEntityContext()
   const handleCachePolicy = () => {
-    set('policy', policy)
+    set(CACHE_PATH.HOTELS_CHAIN.CURRENT_POLICY, policy)
+    setCurrentPolicy(policy)
   }
   return (
     <div>
-      <Link
-        onClick={handleCachePolicy}
-        to={`/profile/policy/${policy.alphaId}`}
-      >
+      <Link onClick={handleCachePolicy} to={`/hotelChain/newPolicy`}>
         <div
           className="flex w-full cursor-pointer items-center justify-center gap-4 pb-4 
           transition delay-100
