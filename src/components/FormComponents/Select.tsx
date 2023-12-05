@@ -27,7 +27,7 @@ const selectVariants = tv({
 type RootProps = Omit<Select.SelectProps, 'onOpenChange' | 'open'> &
   VariantProps<typeof selectVariants> & {
     children: ReactNode
-    label: string
+    label?: string
     className?: string
     placeholder?: string | null
     errorMessage?: string | null
@@ -68,7 +68,9 @@ export function Root({
               enabled:focus:outline-none enabled:data-[error=true]:border-error
               enabled:data-[error=true]:data-[state=open]:border-error"
           >
-            <span className={selectVariants({ variant })}>{label}</span>
+            {label && (
+              <span className={selectVariants({ variant })}>{label}</span>
+            )}
 
             <Select.Value
               data-disabled={isDisabled}

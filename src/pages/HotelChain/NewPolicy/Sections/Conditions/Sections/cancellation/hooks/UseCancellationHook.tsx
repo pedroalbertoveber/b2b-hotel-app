@@ -1,9 +1,6 @@
-import { DashContext } from '@/app/(dashboard)/(context)/DashContext'
-import HotelClass from '@/classes/Hotel/HotelClass'
-import HotelChainClass from '@/classes/HotelChain/HotelChainClass'
-import { setCache } from '@/services/cache'
-import { set } from '@/services/cache/cache'
-import { useContext, useState } from 'react'
+import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
+import { useHotelEntityContext } from '@/context/HotelEntityContext'
+import { useState } from 'react'
 
 export default function UseCancellationHook({ policy }: { policy: any }) {
   const penaltys = [
@@ -24,13 +21,8 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
     },
   ]
 
-  const {
-    hotelChain,
-    hotel,
-  }: {
-    hotelChain: HotelChainClass
-    hotel: HotelClass
-  } = useContext(DashContext)
+  const { HotelChain } = useHotelChainEntityContext()
+  const { Hotel } = useHotelEntityContext()
 
   const getLanguageRules = (key: 'PT_BR' | 'EN_US' | 'ES_ES') => {
     return policy?.modifCancellation?.data?.description
@@ -116,32 +108,32 @@ export default function UseCancellationHook({ policy }: { policy: any }) {
       }
     }
 
-    const payload = {
-      hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
-      ratePolicyEntityAlphaId: policy.alphaId,
-      rules,
-    }
+    // const payload = {
+    //   hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
+    //   ratePolicyEntityAlphaId: policy.alphaId,
+    //   rules,
+    // }
 
-    await hotelChain.putHttp(
-      'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
-      payload,
-    )
+    // await hotelChain.putHttp(
+    //   'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
+    //   payload,
+    // )
 
-    const mergedData = hotelChain.hook.policy.map((e: any) => {
-      if (e.alphaId === policy.alphaId) {
-        return {
-          ...e,
-          rules: {
-            ...e.rules,
-            pet: payload.rules.modifCancellation,
-          },
-        }
-      }
-      return e
-    })
+    // const mergedData = hotelChain.hook.policy.map((e: any) => {
+    //   if (e.alphaId === policy.alphaId) {
+    //     return {
+    //       ...e,
+    //       rules: {
+    //         ...e.rules,
+    //         pet: payload.rules.modifCancellation,
+    //       },
+    //     }
+    //   }
+    //   return e
+    // })
 
-    hotelChain.hook.setPolicy(mergedData)
-    setCache(hotelChain.cachePathPolicies, mergedData)
+    // hotelChain.hook.setPolicy(mergedData)
+    // setCache(hotelChain.cachePathPolicies, mergedData)
   }
 
   return {

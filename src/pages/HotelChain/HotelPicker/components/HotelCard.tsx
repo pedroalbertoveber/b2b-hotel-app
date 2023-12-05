@@ -1,12 +1,18 @@
+import { useHotelEntityContext } from '@/context/HotelEntityContext'
 import { FaPencil, FaTrashCan } from 'react-icons/fa6'
 
 export default function HotelCard({ hotel }: { hotel: any }) {
+  const {
+    Hotel: {
+      hook: { setCurrentHotel },
+    },
+  } = useHotelEntityContext()
   return (
-    <div className="rounded-b2b b-borderColor/20 mt-8 flex w-full cursor-pointer flex-col items-center gap-4 bg-white">
+    <div className="b-borderColor/20 mt-8 flex w-full cursor-pointer flex-col items-center gap-4 rounded-b2b bg-white">
       <div className="relative mt-[-2rem] h-[9rem] w-[85%] shadow-sm">
         <img
-          className="rounded-b2b 
-          h-full w-full
+          className="h-full 
+          w-full rounded-b2b
           transition
           delay-100 ease-in-out hover:-translate-y-12"
           src={`${import.meta.env.VITE_HOTEL_IMAGES_URL}${
@@ -16,14 +22,23 @@ export default function HotelCard({ hotel }: { hotel: any }) {
         ></img>
       </div>
       <div className="mt-[-2.5rem] flex gap-8 py-2">
-        <FaPencil className="text-primary" />
-        <FaTrashCan className="text-secondary" />
+        <button
+          type="button"
+          onClick={() => {
+            setCurrentHotel(hotel)
+          }}
+        >
+          <FaPencil className="text-primary" />
+        </button>
+        <button type="button">
+          <FaTrashCan className="text-secondary" />
+        </button>
       </div>
       <div className="mb-4 flex flex-col gap-4">
-        <div className="text-small flex items-center justify-center border-b pb-4 font-bold">
+        <div className="flex items-center justify-center border-b pb-4 text-small font-bold">
           {hotel.socialName}
         </div>
-        <div className="text-small flex items-center justify-center font-bold text-primary">
+        <div className="flex items-center justify-center text-small font-bold text-primary">
           {hotel.address.location.cityName}
         </div>
       </div>

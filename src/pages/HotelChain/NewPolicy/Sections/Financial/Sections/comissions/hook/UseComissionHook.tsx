@@ -1,9 +1,11 @@
 import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
-import { set, setCache } from '@/services/cache'
+import { useHotelEntityContext } from '@/context/HotelEntityContext'
+import { setCache } from '@/services/cache'
 import { useState } from 'react'
 
 export default function UseComissionHook({ policy }: { policy: any }) {
   const { HotelChain } = useHotelChainEntityContext()
+  const { Hotel } = useHotelEntityContext()
   const findDefault = (key: string) => {
     if (Object.keys(policy.commission.data).includes(key)) {
       const result = {
@@ -86,33 +88,33 @@ export default function UseComissionHook({ policy }: { policy: any }) {
           inherited: false,
         },
       }
-      const payload = {
-        hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
-        ratePolicyEntityAlphaId: policy.alphaId,
-        rules,
-      }
+      //   const payload = {
+      //     hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
+      //     ratePolicyEntityAlphaId: policy.alphaId,
+      //     rules,
+      //   }
 
-      await HotelChain.putHttp(
-        'rate-policies/' + policy.alphaId + '/' + HotelChain.putMethods.rules,
-        payload,
-      )
+      //   await HotelChain.putHttp(
+      //     'rate-policies/' + policy.alphaId + '/' + HotelChain.putMethods.rules,
+      //     payload,
+      //   )
 
-      const mergedData = HotelChain.hook.policy.map((e: any) => {
-        if (e.alphaId === policy.alphaId) {
-          return {
-            ...e,
-            rules: {
-              ...e.rules,
-              commission: rules.commission,
-              // AO IMPORTAR ALTERAR AQUI
-            },
-          }
-        }
-        return e
-      })
+      //   const mergedData = HotelChain.hook.policy.map((e: any) => {
+      //     if (e.alphaId === policy.alphaId) {
+      //       return {
+      //         ...e,
+      //         rules: {
+      //           ...e.rules,
+      //           commission: rules.commission,
+      //           // AO IMPORTAR ALTERAR AQUI
+      //         },
+      //       }
+      //     }
+      //     return e
+      //   })
 
-      HotelChain.hook.setPolicy(mergedData)
-      setCache(HotelChain.cachePathPolicies, mergedData)
+      //   HotelChain.hook.setPolicy(mergedData)
+      //   setCache(HotelChain.cachePathPolicies, mergedData)
     }
   }
 
@@ -129,7 +131,7 @@ export default function UseComissionHook({ policy }: { policy: any }) {
     handleParentToggle,
     handleChildToggle,
     HotelChain,
-    hotel,
+    Hotel,
     handleSubmit,
   }
 }

@@ -16,6 +16,8 @@ export function HotelChainPolicy() {
       hook: { policies },
     },
   } = useHotelChainEntityContext()
+
+  console.log('policies - ', policies)
   return (
     <>
       {/* Page header */}
@@ -23,7 +25,7 @@ export function HotelChainPolicy() {
       <Hotelinfo />
 
       <B2BPattern.Containers.Container className="overflow-visible md:mt-8">
-        <B2BPattern.Texts.Title title="Minhas Políticas" />
+        {/* <B2BPattern.Texts.Title title="Minhas Políticas" /> */}
         <button
           type="button"
           className="mb-4 flex w-full items-center justify-end gap-2 text-secondary"

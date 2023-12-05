@@ -23,13 +23,13 @@ export default function PolicyItem({ policy }: { policy: any }) {
             <BiSolidHelpCircle className="h-6 w-6 text-white" />
           </PopoverHover.PopoverTrigger>
           <PopoverHover.PopoverContent>
-            <div className="rounded-b2b z-10 w-[20rem] p-2">
+            <div className="z-10 w-[20rem] rounded-b2b p-2">
               <p className="z-20 text-primary">{policy.description.PT_BR}</p>
             </div>
           </PopoverHover.PopoverContent>
         </PopoverHover.PopoverRoot>
 
-        <FaStar active={policy.defaultPolicy} />
+        <FaStar className={policy.defaultPolicy ? 'text-yellow-400' : ''} />
       </div>
       <div className="flex items-center justify-end">
         <PopoverClick.PopoverRoot>

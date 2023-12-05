@@ -1,11 +1,7 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import Toggler from '@/components/interactionComponents/switch/Switch';
-import { B2BPattern } from '@/components/pattern';
-import UseChildHook from './hooks/UseChildHook';
-import { TextField } from '@mui/material';
-import LanguageTabs from '@/components/languageTabs/languageTabs';
-import TextFieldB2b from '@/components/formComponents/TextField';
-
+import { B2BPattern } from '@/components'
+import UseChildHook from './hooks/UseChildHook'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
+import { FormComponents } from '@/components/FormComponents'
 export default function Childs({ policy }: { policy: any }) {
   const {
     edit,
@@ -23,41 +19,45 @@ export default function Childs({ policy }: { policy: any }) {
     languageRules,
     setLanguageRules,
     submit,
-  } = UseChildHook({ policy });
+  } = UseChildHook({ policy })
 
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Crianças"
         isEditing={edit}
         handle={() => {
-          if (edit) submit();
-          setEdit(!edit);
+          if (edit) submit()
+          setEdit(!edit)
         }}
       />
-      <B2BPattern.Containers.Column
-        classes={`${!edit ? 'opacity-75' : ''} justify-start items-start gap-8`}
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
+          !edit ? 'opacity-75' : ''
+        }`}
       >
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
-            <Toggler
-              disabled={!edit}
-              enabled={allowChild}
-              setEnabled={() => {
-                setAllowChild(!allowChild);
-              }}
-            />
+            <FormComponents.Switch.Root>
+              <FormComponents.Switch.Thumb
+                disabled={!edit}
+                checked={allowChild}
+                onCheckedChange={() => {
+                  setAllowChild(!allowChild)
+                }}
+              />
+            </FormComponents.Switch.Root>
             <p>Permite Crianças</p>
           </div>
           {allowChild && (
-            <div className="flex flex-col gap-4 ml-4 w-full">
+            <div className="ml-4 flex w-full flex-col gap-4">
               <div className="grid grid-cols-2">
                 <label className="w-full self-center">Idade Limite</label>
-                <TextFieldB2b
+                <FormComponents.Input
                   disabled={!edit}
                   value={childUntilAge}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setChildUntilAge(+event.target.value);
+                    setChildUntilAge(+event.target.value)
                   }}
                 />
               </div>
@@ -67,34 +67,36 @@ export default function Childs({ policy }: { policy: any }) {
 
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
-            <Toggler
-              disabled={!edit}
-              enabled={courtesyChild}
-              setEnabled={() => {
-                setCourtesyChild(!courtesyChild);
-              }}
-            />
+            <FormComponents.Switch.Root>
+              <FormComponents.Switch.Thumb
+                disabled={!edit}
+                checked={courtesyChild}
+                onCheckedChange={() => {
+                  setCourtesyChild(!courtesyChild)
+                }}
+              />
+            </FormComponents.Switch.Root>
             <p>Cortesias</p>
           </div>
           {courtesyChild && (
-            <div className="flex flex-col gap-4 ml-4 w-full">
+            <div className="ml-4 flex w-full flex-col gap-4">
               <div className="grid grid-cols-2">
                 <label className="w-full self-center">Qtde Cortesias</label>
-                <TextFieldB2b
+                <FormComponents.Input
                   disabled={!edit}
                   value={howManyChilds}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setHowManyChilds(+event.target.value);
+                    setHowManyChilds(+event.target.value)
                   }}
                 />
               </div>
               <div className="grid grid-cols-2">
                 <label className="w-full self-center">Idade Limite</label>
-                <TextFieldB2b
+                <FormComponents.Input
                   disabled={!edit}
                   value={childUntilAgeForCortesy}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setChildUntilAgeForCortesy(+event.target.value);
+                    setChildUntilAgeForCortesy(+event.target.value)
                   }}
                 />
               </div>
@@ -102,11 +104,8 @@ export default function Childs({ policy }: { policy: any }) {
           )}
         </div>
 
-        <LanguageTabs
-          value={languageRules}
-          set={setLanguageRules}
-        />
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+        {/* <LanguageTabs value={languageRules} set={setLanguageRules} /> */}
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

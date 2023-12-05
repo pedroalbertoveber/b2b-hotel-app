@@ -1,9 +1,9 @@
-import Toggler from '@/components/interactionComponents/switch/Switch';
-import { B2BPattern } from '@/components/pattern';
-import SectionTitle from '../../../../../components/SectionTitle';
-import CardDetails from './components/CardDetails';
-import UsePaymentMethodHook from './hook/usePaymentMethod';
-import SectionSubtitle from '@/app/(dashboard)/profile/policy/components/SectionSubtitle';
+import { B2BPattern } from '@/components'
+import UsePaymentMethodHook from './hook/usePaymentMethod'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
+import SubTitle from '@/components/Texts/Subtitle'
+import { FormComponents } from '@/components/FormComponents'
+import CardDetails from './components/CardDetails'
 
 export default function PaymentMethods({ policy }: { policy: any }) {
   const {
@@ -18,44 +18,43 @@ export default function PaymentMethods({ policy }: { policy: any }) {
     findPaymentMethods,
     handleSubmit,
     paymentMethodsDefault,
-  } = UsePaymentMethodHook({ policy });
+  } = UsePaymentMethodHook({ policy })
 
-  findPaymentMethods();
+  findPaymentMethods()
 
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Formas de Pagamento"
         isEditing={edit}
         handle={() => {
           if (edit) {
-            handleSubmit();
+            handleSubmit()
           }
-          setEdit(!edit);
+          setEdit(!edit)
         }}
       />
-      <div className="flex flex-col justify-start w-full items-start gap-4">
-        <SectionSubtitle title="Formas de Pagamento Aceitas" />
+      <div className="flex w-full flex-col items-start justify-start gap-4">
+        <SubTitle title="Formas de Pagamento Aceitas" />
         {paymentMethodsDefault.map((e, i) => {
           return (
-            <div
-              className="flex flex-col gap-8"
-              key={e.id}
-            >
+            <div className="flex flex-col gap-8" key={e.id}>
               <div className="flex gap-4">
-                <Toggler
-                  disabled={!edit}
-                  enabled={enabled[i]}
-                  setEnabled={() => {
-                    const aux = [...enabled];
-                    aux[i] = !aux[i];
-                    setEnabled(aux);
-                  }}
-                />
+                <FormComponents.Switch.Root>
+                  <FormComponents.Switch.Thumb
+                    disabled={!edit}
+                    checked={enabled[i]}
+                    onCheckedChange={() => {
+                      const aux = [...enabled]
+                      aux[i] = !aux[i]
+                      setEnabled(aux)
+                    }}
+                  ></FormComponents.Switch.Thumb>
+                </FormComponents.Switch.Root>
                 <p>{e.title}</p>
               </div>
               {e.name === 'CREDIT_CARD' && enabled[i] && (
-                <div className="flex flex-col gap-4 ml-8 mb-4">
+                <div className="mb-4 ml-8 flex flex-col gap-4">
                   <CardDetails
                     cardOnlyPhysical={cardOnlyPhysical}
                     setCardOnlyPhysical={setCardOnlyPhysical}
@@ -66,9 +65,9 @@ export default function PaymentMethods({ policy }: { policy: any }) {
                 </div>
               )}
             </div>
-          );
+          )
         })}
       </div>
-    </B2BPattern.Containers.WhiteBox>
-  );
+    </B2BPattern.Containers.Whitebox>
+  )
 }

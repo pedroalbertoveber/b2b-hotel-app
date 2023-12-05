@@ -1,11 +1,6 @@
-'use client'
-
-import { DashContext } from '@/app/(dashboard)/(context)/DashContext'
-import HotelClass from '@/classes/Hotel/HotelClass'
-import HotelChainClass from '@/classes/HotelChain/HotelChainClass'
-import { setCache } from '@/services/cache'
-import { set } from '@/services/cache/cache'
-import { useContext, useState } from 'react'
+import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
+import { useHotelEntityContext } from '@/context/HotelEntityContext'
+import { useState } from 'react'
 
 export default function UsePaymentMethodHook({ policy }: { policy: any }) {
   const SetPaymentData = (
@@ -46,13 +41,8 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
     return paymentMethodData
   }
 
-  const {
-    hotelChain,
-    hotel,
-  }: {
-    hotelChain: HotelChainClass
-    hotel: HotelClass
-  } = useContext(DashContext)
+  const { HotelChain } = useHotelChainEntityContext()
+  const { Hotel } = useHotelEntityContext()
 
   const paymentMethods = policy?.paymentMethod.data || []
   const paymentMethodsDefault = [
@@ -113,6 +103,7 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
     const activePaymentMethods = paymentMethodsDefault
       .filter((e: any, i: number) => {
         if (enabled[i]) return e
+        return null
       })
       .map((e: any) => {
         return {
@@ -147,27 +138,28 @@ export default function UsePaymentMethodHook({ policy }: { policy: any }) {
           },
         }
       }
+      return rules
     })
 
-    const payload = {
-      hotelRatePolicyAlphaId: hotel.hook.data.alphaId,
-      ratePolicyEntityAlphaId: policy.alphaId,
-      rules,
-    }
-    if (payload.rules.paymentMethod.data.length === 0) {
-      return
-    }
-    await hotelChain.putHttp(
-      'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
-      payload,
-    )
+    // const payload = {
+    //   hotelRatePolicyAlphaId: hotel.hook.data.alphaId,
+    //   ratePolicyEntityAlphaId: policy.alphaId,
+    //   rules,
+    // }
+    // if (payload.rules.paymentMethod.data.length === 0) {
+    //   return
+    // }
+    // await hotelChain.putHttp(
+    //   'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
+    //   payload,
+    // )
 
-    const mergedData = {
-      ...hotelChain.hook.data,
-    }
+    // const mergedData = {
+    //   ...hotelChain.hook.data,
+    // }
 
-    hotelChain.hook.setData(mergedData)
-    setCache(hotelChain.cachePath, mergedData)
+    // hotelChain.hook.setData(mergedData)
+    // setCache(hotelChain.cachePath, mergedData)
   }
 
   return {

@@ -1,8 +1,7 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import { B2BPattern } from '@/components/pattern';
-import { TextField } from '@mui/material';
-import UseHoursHook from './hook/UseHoursHook';
-import TextFieldB2b from '@/components/formComponents/TextField';
+import { B2BPattern } from '@/components'
+import UseHoursHook from './hook/UseHoursHook'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
+import { FormComponents } from '@/components/FormComponents'
 
 export default function Hours({ policy }: { policy: any }) {
   const {
@@ -13,42 +12,44 @@ export default function Hours({ policy }: { policy: any }) {
     edit,
     setEdit,
     handleSubmit,
-  } = UseHoursHook({ policy });
+  } = UseHoursHook({ policy })
 
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Horários"
         isEditing={edit}
         handle={() => {
-          if (edit) handleSubmit();
-          setEdit(!edit);
+          if (edit) handleSubmit()
+          setEdit(!edit)
         }}
       />
-      <B2BPattern.Containers.Column
-        classes={`${!edit ? 'opacity-75' : ''} justify-start items-start gap-4`}
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
+          !edit ? 'opacity-75' : ''
+        }`}
       >
         <div className="grid grid-cols-2">
           <label className="w-full self-center">Check-in a partir de</label>
-          <TextFieldB2b
+          <FormComponents.Input
             disabled={!edit}
             value={checkIn}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCheckIn(event.target.value);
+              setCheckIn(event.target.value)
             }}
           />
         </div>
         <div className="grid grid-cols-2">
           <label className="w-full self-center">Check-out até</label>
-          <TextFieldB2b
+          <FormComponents.Input
             disabled={!edit}
             value={checkOut}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCheckOut(event.target.value);
+              setCheckOut(event.target.value)
             }}
           />
         </div>
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

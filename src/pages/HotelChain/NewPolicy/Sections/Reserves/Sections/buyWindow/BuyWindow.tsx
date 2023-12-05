@@ -1,52 +1,51 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import { B2BPattern } from '@/components/pattern';
-import Input from '@/components/formComponents/Input';
-import UseBuyWindowHook from './hooks/UseBuyWindowHook';
+import { B2BPattern } from '@/components'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
+import UseBuyWindowHook from './hooks/UseBuyWindowHook'
+import { FormComponents } from '@/components/FormComponents'
 
 export default function BuyWindow({ policy }: { policy: any }) {
   const { days, min, max, edit, setEdit, setMin, setMax, submit } =
     UseBuyWindowHook({
       policy,
-    });
+    })
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Períodos Mínimos e Máximos de Estadia"
         isEditing={edit}
         handle={() => {
-          if (edit) submit();
-          setEdit(!edit);
+          if (edit) submit()
+          setEdit(!edit)
         }}
       />
 
-      <B2BPattern.Containers.Column
-        classes={`${
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
           !edit ? 'opacity-75' : ''
-        } justify-center items-start gap-4`}
+        }`}
       >
-        <B2BPattern.Containers.Row classes="justify-between gap-4">
+        <div className="flex w-full items-center justify-between gap-4">
           <div className="flex flex-col gap-4">
             <p>Estádia mínima (dias)</p>
             <div className="flex flex-col gap-4">
               {days.map((e: any, i: number) => {
                 return (
-                  <Input
+                  <FormComponents.Input
                     disabled={!edit}
                     type="number"
                     key={i}
                     title={e.title}
                     value={min[i]}
                     onChange={(e: any) => {
-                      const value = e.target.value;
+                      const value = e.target.value
                       setMin((prev: any) => {
-                        prev[i] = value;
-                        return [...prev];
-                      });
+                        prev[i] = value
+                        return [...prev]
+                      })
                     }}
-                    row={true}
                     className="w-1/3"
                   />
-                );
+                )
               })}
             </div>
           </div>
@@ -55,28 +54,27 @@ export default function BuyWindow({ policy }: { policy: any }) {
             <div className="flex flex-col gap-4">
               {days.map((e: any, i: number) => {
                 return (
-                  <Input
+                  <FormComponents.Input
                     disabled={!edit}
                     type="number"
                     key={i}
                     title={e.title}
                     value={max[i]}
                     onChange={(e: any) => {
-                      const value = e.target.value;
+                      const value = e.target.value
                       setMax((prev: any) => {
-                        prev[i] = value;
-                        return [...prev];
-                      });
+                        prev[i] = value
+                        return [...prev]
+                      })
                     }}
-                    row={true}
                     className="w-1/3"
                   />
-                );
+                )
               })}
             </div>
           </div>
-        </B2BPattern.Containers.Row>
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+        </div>
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

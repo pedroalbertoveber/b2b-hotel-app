@@ -1,11 +1,5 @@
 // Core
-import {
-  createContext,
-  ReactNode,
-  useState,
-  useContext,
-  useEffect,
-} from 'react'
+import { createContext, ReactNode, useState, useContext } from 'react'
 
 type SidebarContextProps = {
   isOpended: boolean

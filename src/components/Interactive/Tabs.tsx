@@ -29,7 +29,7 @@ export function TriggerGhost({
     <TabsTrigger
       {...props}
       className={twMerge(
-        'text-textDisabled h-full w-full bg-transparent p-0 font-semibold uppercase duration-150 data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:shadow-none',
+        'h-full w-full bg-transparent p-0 font-semibold uppercase text-textDisabled duration-150 data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:shadow-none',
         className,
       )}
     />

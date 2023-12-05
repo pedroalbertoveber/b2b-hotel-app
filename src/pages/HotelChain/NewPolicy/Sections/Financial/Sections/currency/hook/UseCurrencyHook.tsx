@@ -1,19 +1,11 @@
-import { DashContext } from '@/app/(dashboard)/(context)/DashContext'
-import HotelClass from '@/classes/Hotel/HotelClass'
-import HotelChainClass from '@/classes/HotelChain/HotelChainClass'
-import { currencyCodes } from '@/globalData/currency'
-import { setCache } from '@/services/cache'
-import { set } from '@/services/cache/cache'
-import { useContext, useState } from 'react'
+import { useHotelChainEntityContext } from '@/context/HotelChainEntityContext'
+import { useHotelEntityContext } from '@/context/HotelEntityContext'
+import { currencyCodes } from '@/data/currency'
+import { useState } from 'react'
 
 export default function UseCurrencyHook({ policy }: { policy: any }) {
-  const {
-    hotelChain,
-    hotel,
-  }: {
-    hotelChain: HotelChainClass
-    hotel: HotelClass
-  } = useContext(DashContext)
+  const { HotelChain } = useHotelChainEntityContext()
+  const { Hotel } = useHotelEntityContext()
 
   const getDefaultCurrency = () => {
     return policy?.currency?.data
@@ -49,32 +41,32 @@ export default function UseCurrencyHook({ policy }: { policy: any }) {
         inherited: false,
       },
     }
-    const payload = {
-      hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
-      ratePolicyEntityAlphaId: policy.alphaId,
-      rules,
-    }
+    // const payload = {
+    //   hotelRatePolicyAlphaId: hotel.hook.data[0].alphaId,
+    //   ratePolicyEntityAlphaId: policy.alphaId,
+    //   rules,
+    // }
 
-    await hotelChain.putHttp(
-      'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
-      payload,
-    )
+    // await hotelChain.putHttp(
+    //   'rate-policies/' + policy.alphaId + '/' + hotelChain.putMethods.rules,
+    //   payload,
+    // )
 
-    const mergedData = hotelChain.hook.policy.map((e: any) => {
-      if (e.alphaId === policy.alphaId) {
-        return {
-          ...e,
-          rules: {
-            ...e.rules,
-            currency: payload.rules.currency,
-          },
-        }
-      }
-      return e
-    })
+    // const mergedData = hotelChain.hook.policy.map((e: any) => {
+    //   if (e.alphaId === policy.alphaId) {
+    //     return {
+    //       ...e,
+    //       rules: {
+    //         ...e.rules,
+    //         currency: payload.rules.currency,
+    //       },
+    //     }
+    //   }
+    //   return e
+    // })
 
-    hotelChain.hook.setPolicy(mergedData)
-    setCache(hotelChain.cachePathPolicies, mergedData)
+    // hotelChain.hook.setPolicy(mergedData)
+    // setCache(hotelChain.cachePathPolicies, mergedData)
   }
 
   return {

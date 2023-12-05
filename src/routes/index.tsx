@@ -16,7 +16,6 @@ export function Router() {
       <Route path="/hotelChain/newPolicy" element={<HotelChainNewPolicy />} />
       <Route path="/hotelChain/reserves" element={<HotelChainReserves />} />
       <Route path="/hotelChain/clients" element={<HotelChainClients />} />
-      <Route path="/hotelChain/chain" element={<HotelChainInfo />} />
     </Routes>
   )
 }

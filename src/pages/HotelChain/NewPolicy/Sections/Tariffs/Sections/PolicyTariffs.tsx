@@ -1,25 +1,27 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import { B2BPattern } from '@/components/pattern';
-import { useState } from 'react';
+import { B2BPattern } from '@/components'
+import { useState } from 'react'
+import SectionTitle from '../../../Components/SectionTitle'
 
 export default function PolicyTariffs() {
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(false)
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         disabled
         title="Tarifas que Utilizam essa Política"
         isEditing={edit}
         handle={() => {
-          setEdit(!edit);
+          setEdit(!edit)
         }}
       />
 
-      <B2BPattern.Containers.Column
-        classes={`${!edit ? 'opacity-75' : ''} justify-start items-start gap-4`}
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
+          !edit ? 'opacity-75' : ''
+        }`}
       >
         <></>
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

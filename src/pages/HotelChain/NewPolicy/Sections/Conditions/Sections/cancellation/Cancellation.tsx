@@ -1,11 +1,7 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import Toggler from '@/components/interactionComponents/switch/Switch';
-import { B2BPattern } from '@/components/pattern';
-import UseCancellationHook from './hooks/UseCancellationHook';
-import { TextField } from '@mui/material';
-import LanguageTabs from '@/components/languageTabs/languageTabs';
-import TextFieldB2b from '@/components/formComponents/TextField';
-
+import { B2BPattern } from '@/components'
+import UseCancellationHook from './hooks/UseCancellationHook'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
+import { FormComponents } from '@/components/FormComponents'
 export default function Cancellation({ policy }: { policy: any }) {
   const {
     penaltys,
@@ -24,43 +20,47 @@ export default function Cancellation({ policy }: { policy: any }) {
     edit,
     setEdit,
     submit,
-  } = UseCancellationHook({ policy });
+  } = UseCancellationHook({ policy })
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Alterações e Cancelamentos"
         isEditing={edit}
         handle={() => {
-          if (edit) submit();
-          setEdit(!edit);
+          if (edit) submit()
+          setEdit(!edit)
         }}
       />
 
-      <B2BPattern.Containers.Column
-        classes={`${!edit ? 'opacity-75' : ''} justify-start items-start gap-8`}
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
+          !edit ? 'opacity-75' : ''
+        }`}
       >
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
-            <Toggler
-              disabled={!edit}
-              enabled={allowCancellationWithoutPenalty}
-              setEnabled={() => {
-                setAllowCancellationWithoutPenalty(
-                  !allowCancellationWithoutPenalty
-                );
-              }}
-            />
+            <FormComponents.Switch.Root>
+              <FormComponents.Switch.Thumb
+                disabled={!edit}
+                checked={allowCancellationWithoutPenalty}
+                onCheckedChange={() => {
+                  setAllowCancellationWithoutPenalty(
+                    !allowCancellationWithoutPenalty,
+                  )
+                }}
+              />
+            </FormComponents.Switch.Root>
             <p>Cancelamento ou alteração sem ônus</p>
           </div>
           {allowCancellationWithoutPenalty && (
-            <div className="flex flex-col gap-4 ml-4 w-full">
+            <div className="ml-4 flex w-full flex-col gap-4">
               <div className="grid grid-cols-2">
                 <label className="w-full self-center">Horas Limite</label>
-                <TextFieldB2b
+                <FormComponents.Input
                   disabled={!edit}
                   value={howManyHoursBeforePenalty}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setHowManyHoursBeforePenalty(+event.target.value);
+                    setHowManyHoursBeforePenalty(+event.target.value)
                   }}
                 />
               </div>
@@ -70,60 +70,57 @@ export default function Cancellation({ policy }: { policy: any }) {
 
         <div className="flex flex-col gap-4">
           <div className="flex gap-4">
-            <Toggler
-              disabled={!edit}
-              enabled={cancellationPenalty}
-              setEnabled={() => {
-                setCancellationPenalty(!cancellationPenalty);
-                handleCheckPenalty();
-              }}
-            />
+            <FormComponents.Switch.Root>
+              <FormComponents.Switch.Thumb
+                disabled={!edit}
+                checked={cancellationPenalty}
+                onCheckedChange={() => {
+                  setCancellationPenalty(!cancellationPenalty)
+                  handleCheckPenalty()
+                }}
+              />
+            </FormComponents.Switch.Root>
             <p>Multa de Cancelamento</p>
           </div>
           {cancellationPenalty && (
-            <div className="flex flex-col gap-4 ml-4 w-full">
+            <div className="ml-4 flex w-full flex-col gap-4">
               {penaltys.map((e, i) => {
                 return (
-                  <div
-                    className="flex gap-4"
-                    key={i}
-                  >
-                    <Toggler
-                      disabled={!edit}
-                      enabled={cancellationPenaltyOptions[i]}
-                      setEnabled={() => {
-                        handleCheckPenalty(i);
-                      }}
-                    />
+                  <div className="flex gap-4" key={i}>
+                    <FormComponents.Switch.Root>
+                      <FormComponents.Switch.Thumb
+                        disabled={!edit}
+                        checked={cancellationPenaltyOptions[i]}
+                        onCheckedChange={() => {
+                          handleCheckPenalty(i)
+                        }}
+                      />
+                    </FormComponents.Switch.Root>
                     <p>{e.title}</p>
                     {edit && cancellationPenaltyOptions[i] && i > 0 && (
                       <div>
-                        <TextFieldB2b
-                          variant="standard"
+                        <FormComponents.Input
                           type="number"
                           value={cancellationPenaltyValue[i]}
                           onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
+                            event: React.ChangeEvent<HTMLInputElement>,
                           ) => {
-                            const aux = [...cancellationPenaltyValue];
-                            aux[i] = +event.target.value;
-                            setCancellationPenaltyValue(aux);
+                            const aux = [...cancellationPenaltyValue]
+                            aux[i] = +event.target.value
+                            setCancellationPenaltyValue(aux)
                           }}
                         />
                       </div>
                     )}
                   </div>
-                );
+                )
               })}
             </div>
           )}
         </div>
 
-        <LanguageTabs
-          value={languageRules}
-          set={setLanguageRules}
-        />
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+        {/* <LanguageTabs value={languageRules} set={setLanguageRules} /> */}
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

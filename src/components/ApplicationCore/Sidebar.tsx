@@ -12,10 +12,11 @@ import { MdPolicy, MdBookOnline, MdApartment } from 'react-icons/md'
 import { HotelChainIcon, User, Dropdown, NavHotel } from '@/common/icons'
 
 // Libs
-import { Link, LinkProps } from 'react-router-dom'
+import { Link, LinkProps, useLocation } from 'react-router-dom'
 
 // Contexts
 import { useSidebarContext } from '@/context/Sidebar'
+import { useEffect } from 'react'
 
 export function Sidebar() {
   const { isOpended } = useSidebarContext()
@@ -67,7 +68,7 @@ export function Sidebar() {
           </CollapsibleTrigger>
 
           <CollapsibleContent>
-            <NavItem isActive to="/">
+            <NavItem to="/">
               <span className="group-data-[state=closed]:sr-only">
                 Detalhes
               </span>
@@ -120,15 +121,6 @@ export function Sidebar() {
                 size={24}
               />
             </NavItem>
-
-            <NavItem to="hotelChain/chain">
-              <span className="group-data-[state=closed]:sr-only">Rede</span>
-              <MdApartment
-                className="text-white group-data-[state=opened]:sr-only"
-                weight="fill"
-                size={24}
-              />
-            </NavItem>
           </CollapsibleContent>
         </Collapsible>
 
@@ -155,15 +147,10 @@ export function Sidebar() {
 }
 
 type NavItemProps = LinkProps & {
-  isActive?: boolean
   isDisabled?: boolean
 }
 
-export function NavItem({
-  isActive = false,
-  isDisabled = false,
-  ...props
-}: NavItemProps) {
+export function NavItem({ isDisabled = false, ...props }: NavItemProps) {
   const { isOpended } = useSidebarContext()
 
   return (
@@ -171,7 +158,7 @@ export function NavItem({
       {...props}
       data-state={isOpended ? 'opened' : 'closed'}
       data-disabled={isDisabled}
-      data-active={isActive}
+      data-active={useLocation().pathname === props.to}
       className="group flex items-start rounded-md bg-transparent py-2 pl-12 pr-4 text-white duration-150 data-[active=true]:cursor-auto data-[disabled=true]:cursor-auto data-[state=closed]:justify-center data-[active=true]:bg-secondary data-[state=closed]:px-0 data-[state=opened]:pl-12 data-[disabled=true]:opacity-50 data-[disabled=false]:data-[active=false]:hover:bg-secondary"
     />
   )

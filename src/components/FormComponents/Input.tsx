@@ -21,7 +21,7 @@ const inputVariants = tv({
 
 type InputProps = VariantProps<typeof inputVariants> &
   ComponentProps<'input'> & {
-    label: string
+    label?: string
     onValueChange?: (value: string) => void
     errorMessage?: string | null
   }
@@ -62,7 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             data-[disabled=true]:text-divider/30 
             data-[error=false]:data-[disabled=false]:hover:border-black"
       >
-        <label className={inputVariants({ variant })}>{label}</label>
+        {label && <label className={inputVariants({ variant })}>{label}</label>}
 
         <input
           ref={ref}

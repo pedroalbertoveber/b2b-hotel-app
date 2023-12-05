@@ -1,8 +1,7 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import Toggler from '@/components/interactionComponents/switch/Switch';
-import { B2BPattern } from '@/components/pattern';
-import UsePetsHook from './hooks/UsePetsHook';
-import LanguageTabs from '@/components/languageTabs/languageTabs';
+import { B2BPattern } from '@/components'
+import UsePetsHook from './hooks/UsePetsHook'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
+import { FormComponents } from '@/components/FormComponents'
 
 export default function Pets({ policy }: { policy: any }) {
   const {
@@ -15,39 +14,40 @@ export default function Pets({ policy }: { policy: any }) {
     submit,
   } = UsePetsHook({
     policy,
-  });
+  })
 
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Pets"
         isEditing={edit}
         handle={() => {
-          if (edit) submit();
-          setEdit(!edit);
+          if (edit) submit()
+          setEdit(!edit)
         }}
       />
 
-      <B2BPattern.Containers.Column
-        classes={`${!edit ? 'opacity-75' : ''} justify-start items-start gap-4`}
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
+          !edit ? 'opacity-75' : ''
+        }`}
       >
         <div className="flex gap-4">
-          <Toggler
-            disabled={!edit}
-            enabled={allowPets}
-            setEnabled={() => {
-              setAllowPets(!allowPets);
-            }}
-          />
+          <FormComponents.Switch.Root>
+            <FormComponents.Switch.Thumb
+              disabled={!edit}
+              checked={allowPets}
+              onChange={() => {
+                setAllowPets(!allowPets)
+              }}
+            />
+          </FormComponents.Switch.Root>
           <p>Permite Pets</p>
         </div>
-        {allowPets && (
-          <LanguageTabs
-            value={languageRules}
-            set={setLanguageRules}
-          />
-        )}
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+        {/* {allowPets && (
+          <LanguageTabs value={languageRules} set={setLanguageRules} />
+        )} */}
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

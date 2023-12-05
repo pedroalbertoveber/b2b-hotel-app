@@ -1,40 +1,40 @@
-import SectionTitle from '@/app/(dashboard)/profile/policy/components/SectionTitle';
-import AutoCompleteB2B from '@/components/formComponents/AutoComplete';
-import { B2BPattern } from '@/components/pattern';
-import { pensionOptions } from '@/globalData/pensionType';
-import UsePensionHook from './hook/UsePensionHook';
+import { B2BPattern } from '@/components'
+import UsePensionHook from './hook/UsePensionHook'
+import SectionTitle from '@/pages/HotelChain/NewPolicy/Components/SectionTitle'
 
 export default function Pension({ policy }: { policy: any }) {
   const { pension, setPension, edit, setEdit, submit } = UsePensionHook({
     policy,
-  });
+  })
   return (
-    <B2BPattern.Containers.WhiteBox>
+    <B2BPattern.Containers.Whitebox>
       <SectionTitle
         title="Pensões"
         isEditing={edit}
         handle={() => {
-          if (edit) submit();
-          setEdit(!edit);
+          if (edit) submit()
+          setEdit(!edit)
         }}
       />
-      <B2BPattern.Containers.Column
-        classes={`${!edit ? 'opacity-75' : ''} justify-start items-start gap-4`}
+      <div
+        className={`flex w-full flex-col items-start justify-start gap-8 ${
+          !edit ? 'opacity-75' : ''
+        }`}
       >
         <div className="flex flex-col">
           <p>Que tipo de Pensão está inclusa nessa tarifa?</p>
         </div>
         <div className="w-full">
-          <AutoCompleteB2B
+          {/* <AutoCompleteB2B
             disabled={!edit}
             options={pensionOptions}
             value={pension}
             onChange={(e: any) => {
-              setPension(e);
+              setPension(e)
             }}
-          />
+          /> */}
         </div>
-      </B2BPattern.Containers.Column>
-    </B2BPattern.Containers.WhiteBox>
-  );
+      </div>
+    </B2BPattern.Containers.Whitebox>
+  )
 }

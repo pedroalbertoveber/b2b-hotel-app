@@ -1,4 +1,4 @@
-import PolicyTariffs from './Sections/PolicyTariffs';
+import PolicyTariffs from './Sections/PolicyTariffs'
 
 export default function Tariffs({ policy }: { policy: any }) {
   return (
@@ -7,5 +7,5 @@ export default function Tariffs({ policy }: { policy: any }) {
         <PolicyTariffs />
       </div>
     </div>
-  );
+  )
 }

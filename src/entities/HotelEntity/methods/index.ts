@@ -1,8 +1,12 @@
 export const HttpMethods = {
-  POST: null,
+  POST: {
+    imagesLogo: 'images/LOGO',
+  },
   GET: {
     'get-all': 'get-all',
   },
-  PUT: null,
+  PUT: {
+    socialInfo: 'social-info',
+  },
   DELETE: null,
 } as const

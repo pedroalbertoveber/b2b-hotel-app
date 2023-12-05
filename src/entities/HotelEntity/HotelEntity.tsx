@@ -16,4 +16,21 @@ export default class HotelEntity extends CoreEntity {
   public deleteMethods = HttpMethods.DELETE
 
   public hook = HotelHook()
+
+  async changeLogo(alphaId: string, file: File) {
+    await this.postHttp({
+      method: `${alphaId}/${this.postMethods.imagesLogo}`,
+      body: file,
+    })
+  }
+
+  async changeSocialInfo(alphaId: string, data?: any) {
+    await this.putHttp({
+      method: `${alphaId}/${this.putMethods.socialInfo}`,
+      body: {
+        socialName: data.socialName,
+        socialNetworks: data.socialNetworks,
+      },
+    })
+  }
 }
